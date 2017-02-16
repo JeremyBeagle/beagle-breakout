@@ -5,16 +5,19 @@ var ghost;
 $(document).ready(function () {
   $(document).keydown(moveGame);
 
-  renderBoard();
-  pacMan = new PacMan();
 
-  var intervalId = setInterval(move, 50);
-  var previous = [4, 5];
-  function move () {
+  $('#start-level').click(function () {
+    pacMan = new PacMan();
+    // renderBoard();
 
-    previous = pacMan.ghostMove(previous);
+    var intervalId = setInterval(move, 60);
+    var previous = [4, 5];
+    function move () {
 
-  }
+      previous = pacMan.ghostMove(previous);
+    }
+  });
+
 
   });
 
@@ -75,6 +78,7 @@ function renderBoard () {
           pacManHtml = '<img src="img/beagle-tower.png" class="pac-man">';
           currentPosition = $('.current-position');
           currentPosition.append(pacManHtml);
+          $('.pac-man').css({'transform' : 'rotate('+newGame.direction+'deg)'});
         }
         else if (tile === 'ghost') {
           blockClass = 'tile ghost-position';
@@ -99,5 +103,7 @@ function updateScore () {
 function checkWin() {
   if (newGame.dotCount === 0) {
     alert("YOU WIN!");
+    $('.map-height-support').empty();
   }
+
 }

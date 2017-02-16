@@ -10,9 +10,9 @@
 
 .map {
   position: relative;
-  padding-top: 33%;
-  margin-left: 33%;
-  margin-right: 33%;
+  padding-top: 35%;
+  margin-left: 17.5%;
+  margin-right: 17.5%;
   margin-top: 1%;
 }
 
@@ -25,23 +25,22 @@
   right: 0;
   top: 0;
   width: 100%;
-
-
-  #start-level {
-    border:2px solid white;
-    left: 76%;
-    position: absolute;
-    top: 90%;
-    width: 21%;
-    height: 7%;
-    padding: 0px;
-  }
 }
 
+#start-level {
+  border:2px solid white;
+  left: 79%;
+  position: absolute;
+  top: -10%;
+  width: 21%;
+  height: 7%;
+  padding: 0px;
+  font-size: 20px;
+}
 
 .pac-man {
   position: absolute;
-  width: 7.5%;
+  width: 3.84%;
   height: auto;
   //padding-top: 1%;
   margin: 0.5%;
@@ -110,28 +109,28 @@ background-color:yellow;
   display: inline;
   color:white;
   margin-right: 15%;
-  left: 35%;
+  left: 18%;
   font-size: 30px;
 }
 
 .interior-block {
-  padding-top: 7%;
-  width: 7.68%;
-  height: 11%;
+  padding-top: 3.84%;
+  width: 3.7%;
+  height: 7.7%;
   background-color: black;
   float:left;
 }
 
 .current-position {
-  width: 7.68%;
-  height: 11%;
+  width: 3.7%;
+  height: 7.7%;
   background-color: black;
   float:left;
 }
 
 .exterior-block {
-  width: 7.68%;
-  height: 11%;
+  width: 3.7%;
+  height: 7.7%;
   background-color: black;
   border: 2px solid blue;
   float: left;
@@ -139,24 +138,24 @@ background-color:yellow;
 
 .dot {
   position: absolute;
-  margin: -5% 3%;
+  margin: -2% 1.5%;
   background-color: white;
   border-radius: 50%;
   height: auto;
-  padding: 1%;
-  width: 1%;
+  padding: 0.4%;
+  width: 0.5%;
 }
 
 .ghost-position {
-  width: 7.68%;
-  height: 11%;
+  width: 3.7%;
+  height: 7.7%;
   background-color: black;
   float:left;
 }
 
 .ghost {
   position: absolute;
-  width: 7%;
+  width: 3.7%;
   height: auto;
   z-index: 1;
 }
