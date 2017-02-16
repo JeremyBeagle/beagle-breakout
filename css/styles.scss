@@ -41,11 +41,9 @@
 
 .pac-man {
   position: absolute;
-  background-color: yellow;
-  border-radius: 50%;
-  width: 6%;
+  width: 7.5%;
   height: auto;
-  padding-top: 6%;
+  //padding-top: 1%;
   margin: 0.5%;
   z-index: 1;
   animation-name: move;
@@ -119,21 +117,21 @@ background-color:yellow;
 .interior-block {
   padding-top: 7%;
   width: 7.68%;
-  height: 12.5%;
+  height: 11%;
   background-color: black;
   float:left;
 }
 
 .current-position {
   width: 7.68%;
-  height: 12.5%;
+  height: 11%;
   background-color: black;
   float:left;
 }
 
 .exterior-block {
   width: 7.68%;
-  height: 12.5%;
+  height: 11%;
   background-color: black;
   border: 2px solid blue;
   float: left;
@@ -147,4 +145,18 @@ background-color:yellow;
   height: auto;
   padding: 1%;
   width: 1%;
+}
+
+.ghost-position {
+  width: 7.68%;
+  height: 11%;
+  background-color: black;
+  float:left;
+}
+
+.ghost {
+  position: absolute;
+  width: 7%;
+  height: auto;
+  z-index: 1;
 }

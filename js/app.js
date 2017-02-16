@@ -1,10 +1,21 @@
 var newGame = new GlobalGame();
 var pacMan;
+var ghost;
 
 $(document).ready(function () {
   $(document).keydown(moveGame);
+
   renderBoard();
   pacMan = new PacMan();
+
+  var intervalId = setInterval(move, 50);
+  var previous = [4, 5];
+  function move () {
+
+    previous = pacMan.ghostMove(previous);
+
+  }
+
   });
 
 function moveGame (ev) {
@@ -39,36 +50,44 @@ function moveGame (ev) {
   }
 }
 
+//read, style, and append to DOM based on string contents of hard-coded matrix
 function renderBoard () {
   $('.map-height-support').empty();
-
   var blockClass;
   var blockHtml;
   newGame.dotCount = 0;
   newGame.map.forEach(function(row) {
-
       row.forEach(function (tile) {
-
         if (tile === 'path') {
           blockClass = 'tile interior-block';
+          blockHtml = '<div class="'+blockClass+'"></div>';
+          $('.map-height-support').append(blockHtml);
         }
         else if (tile === 'wall') {
           blockClass = 'tile exterior-block';
+          blockHtml = '<div class="'+blockClass+'"></div>';
+          $('.map-height-support').append(blockHtml);
         }
         else if (tile === 'pac-man'){
           blockClass = 'tile current-position';
+          blockHtml = '<div class="'+blockClass+'"></div>';
+          $('.map-height-support').append(blockHtml);
+          pacManHtml = '<img src="img/beagle-tower.png" class="pac-man">';
+          currentPosition = $('.current-position');
+          currentPosition.append(pacManHtml);
+        }
+        else if (tile === 'ghost') {
+          blockClass = 'tile ghost-position';
+          blockHtml = '<div class="'+blockClass+'"></div>';
+          $('.map-height-support').append(blockHtml);
+          var ghostHtml = '<img src="img/red-ghost.png" class="ghost">';
+          $('.ghost-position').append(ghostHtml);
         }
         else if (tile === 'dot') {
-          blockClass = 'tile dot';
+          blockHtml = '<div class="tile interior-block"><div class="dot"></div></div>';
+          $('.map-height-support').append(blockHtml);
           newGame.dotCount += 1;
         }
-
-        if(blockClass === 'tile dot') {
-          blockHtml = '<div class="tile interior-block"><div class="dot"></div></div>';
-        } else {
-          blockHtml = '<div class="'+blockClass+'"></div>';
-        }
-          $('.map-height-support').append(blockHtml);
       });
   });
 }
