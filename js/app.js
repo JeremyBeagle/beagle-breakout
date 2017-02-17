@@ -41,12 +41,19 @@ var newGame = {
               currentPosition.append(pacManHtml);
               $('.pac-man').css({'transform' : 'rotate('+newGame.direction+'deg)'});
             }
-            else if (tile === 'ghost') {
-              blockClass = 'tile ghost-position';
+            else if (tile === 'ghost1') {
+              blockClass = 'tile ghost-position1';
               blockHtml = '<div class="'+blockClass+'"></div>';
               $('.map-height-support').append(blockHtml);
-              var ghostHtml = '<img src="img/red-ghost.png" class="ghost">';
-              $('.ghost-position').append(ghostHtml);
+              var ghostHtml1 = '<img src="img/red-ghost.png" class="ghost">';
+              $('.ghost-position1').append(ghostHtml1);
+            }
+            else if (tile === 'ghost-1') {
+              blockClass = 'tile ghost-position2';
+              blockHtml = '<div class="'+blockClass+'"></div>';
+              $('.map-height-support').append(blockHtml);
+              var ghostHtml2 = '<img src="img/pink-ghost.ico" class="ghost">';
+              $('.ghost-position2').append(ghostHtml2);
             }
             else if (tile === 'dot') {
               blockHtml = '<div class="tile interior-block"><div class="dot"></div></div>';
@@ -61,7 +68,8 @@ var newGame = {
   },
   checkWin: function() {
     if (newGame.dotCount === 0) {
-      alert("YOU WIN!");
+      ion.sound.play('big-pimpin');
+      $('.victory-screen').toggle();
       $('.map-height-support').empty();
     }
   },
@@ -215,23 +223,27 @@ var newGame = {
 
 $(document).ready(function () {
   var pacMan = new PacMan(); //create new pac-man
-  var ghost = new Ghost(); //create new ghost
+  var ghost = new Ghost(1, [5,14], [6,14]); //create new ghost
+  var ghost2 = new Ghost(-1, [5,13], [6,13]);
   loadSounds();
   $('.game-over-screen').hide();
+  $('.victory-screen').hide();
 
   $('#start-level').click(function () {
     $('.start-game-cover').hide();
     ion.sound.play("pac-man-hip-hop-intro");
     newGame.renderBoard(); // renderBoard to show new characters
 
-    var intervalId = setInterval(move, 60);
+    var intervalId = setInterval(move, 75);
     var previous = ghost.previousGhostPosition1;
+    var previous2 = ghost2.previousGhostPosition1;
 
     function move () {
       if(newGame.findGhost('pac-man') === undefined) {
         clearInterval(intervalId);
       }
       previous = ghost.ghostMove(previous);
+      previous2 = ghost2.ghostMove(previous2);
     }
 
   });
@@ -273,7 +285,7 @@ function movePacMan(ev) {
 
 function loadSounds() {
     ion.sound({
-      sounds: [{name: 'pac-man-hip-hop-intro'}, {name: 'water-drop'} ],
+      sounds: [{name: 'pac-man-hip-hop-intro'}, {name: 'water-drop'}, {name: 'big-pimpin'} ],
       path: 'lib/ion.sound/ion.sound-3.0.7/sounds/',
       preload: true,
       volume: 1.0,

@@ -18,29 +18,31 @@ PacMan.prototype.pacAppend = function () {
 
 
 
-function Ghost () {
-  this.ghostPosition1 = [5,14];
-  this.previousGhostPosition1 = [6, 14];
-  newGame.map[this.ghostPosition1[0]][this.ghostPosition1[1]] = 'ghost';
+function Ghost (id, startingLocation, previousLocation) {
+  this.id = id;
+  this.ghostPosition1 = startingLocation;
+  this.previousGhostPosition1 = previousLocation;
+  newGame.map[this.ghostPosition1[0]][this.ghostPosition1[1]] = 'ghost' + this.id;
 }
 Ghost.prototype.ghostMove = function(previous) {
+  console.log(this.id + " move");
   var upIsOpen = true, downIsOpen = true, leftIsOpen = true, rightIsOpen = true;
   var randomDirection = Math.floor(Math.random() * (5 - 1) + 1);
   var replacementTile;
   var next = this.next(randomDirection);
-  var ghostPosition1 = newGame.findGhost('ghost'); //begin ghost movement interval
+  var ghostPosition1 = newGame.findGhost('ghost'+this.id); //begin ghost movement interval
 
   //obstacle check
-  if (newGame.map[ghostPosition1[0] - 1][ghostPosition1[1]] === 'wall') {
+  if (newGame.map[ghostPosition1[0] - 1][ghostPosition1[1]] === 'wall' || newGame.map[ghostPosition1[0] - 1][ghostPosition1[1]] === ('ghost' + (this.id * -1)) ) {
     upIsOpen = false;
   }
-  if (newGame.map[ghostPosition1[0]][ghostPosition1[1] - 1] === 'wall') {
+  if (newGame.map[ghostPosition1[0]][ghostPosition1[1] - 1] === 'wall' || newGame.map[ghostPosition1[0]][ghostPosition1[1] - 1] === ('ghost' + (this.id * -1))) {
     leftIsOpen = false;
   }
-  if (newGame.map[ghostPosition1[0] + 1][ghostPosition1[1]] === 'wall') {
+  if (newGame.map[ghostPosition1[0] + 1][ghostPosition1[1]] === 'wall' || newGame.map[ghostPosition1[0] + 1][ghostPosition1[1]] === ('ghost' + (this.id * -1))) {
     downIsOpen = false;
   }
-  if (newGame.map[ghostPosition1[0]][ghostPosition1[1] + 1] === 'wall') {
+  if (newGame.map[ghostPosition1[0]][ghostPosition1[1] + 1] === 'wall' || newGame.map[ghostPosition1[0]][ghostPosition1[1] + 1] === ('ghost' + (this.id * -1))) {
     rightIsOpen = false;
   }
 
@@ -56,7 +58,7 @@ Ghost.prototype.ghostMove = function(previous) {
     }
 
     if ( upIsOpen === true && randomDirection === 4 && this.isEqual(next, previous) === false) {
-      newGame.map[ghostPosition1[0] - 1][ghostPosition1[1]] = 'ghost';
+      newGame.map[ghostPosition1[0] - 1][ghostPosition1[1]] = 'ghost' + this.id;
       newGame.map[ghostPosition1[0]][ghostPosition1[1]] = replacementTile; //assign current tile
       previous = [ghostPosition1[0], ghostPosition1[1]];
       this.ghostPosition1[0] -= 1;
@@ -64,7 +66,7 @@ Ghost.prototype.ghostMove = function(previous) {
       return previous;
     }
     else if ( leftIsOpen === true && randomDirection === 3 && this.isEqual(next, previous) === false) {
-      newGame.map[ghostPosition1[0]][ghostPosition1[1] - 1] = 'ghost';
+      newGame.map[ghostPosition1[0]][ghostPosition1[1] - 1] = 'ghost' + this.id;
       newGame.map[ghostPosition1[0]][ghostPosition1[1]] = replacementTile;
       previous = [ghostPosition1[0], ghostPosition1[1]];
       this.ghostPosition1[1] -= 1;
@@ -72,7 +74,7 @@ Ghost.prototype.ghostMove = function(previous) {
       return previous;
     }
     else if ( downIsOpen === true && randomDirection === 2 && this.isEqual(next, previous) === false) {
-      newGame.map[ghostPosition1[0] + 1][ghostPosition1[1]] = 'ghost';
+      newGame.map[ghostPosition1[0] + 1][ghostPosition1[1]] = 'ghost' + this.id;
       newGame.map[ghostPosition1[0]][ghostPosition1[1]] = replacementTile;
       previous = [ghostPosition1[0], ghostPosition1[1]];
       this.ghostPosition1[0] += 1;
@@ -80,7 +82,7 @@ Ghost.prototype.ghostMove = function(previous) {
       return previous;
     }
     else if ( rightIsOpen === true && randomDirection == 1 && this.isEqual(next, previous) === false) {
-      newGame.map[ghostPosition1[0]][ghostPosition1[1] + 1] = 'ghost';
+      newGame.map[ghostPosition1[0]][ghostPosition1[1] + 1] = 'ghost' + this.id;
       newGame.map[ghostPosition1[0]][ghostPosition1[1]] = replacementTile;
       previous = [ghostPosition1[0], ghostPosition1[1]];
       this.ghostPosition1[1] += 1;
@@ -108,7 +110,7 @@ Ghost.prototype.isEqual = function(array1, array2) {
 
 Ghost.prototype.next = function (randomNumber) {
   var next = [];
-  var ghostPosition1 = newGame.findGhost('ghost');
+  var ghostPosition1 = newGame.findGhost('ghost' + this.id);
   if(randomNumber == 4) {
     next = [ghostPosition1[0]-1, ghostPosition1[1]];
   } else if (randomNumber == 3) {

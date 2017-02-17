@@ -5,10 +5,10 @@
   .page-title{
     position: relative;
     margin-top: 3%;
-    margin-bottom: 4%;
+    margin-bottom: 2%;
     left: 28%;
     color: white;
-    font-size: 6em;
+    font-size: 550%;
   }
   .header-image {
     position: absolute;
@@ -87,17 +87,39 @@
     right: 0;
     top: 0;
     width: 100%;
-    z-index: 1;
 
     .loser-message {
       position: absolute;
       color: white;
       font-size: 10em;
       top: 32%;
-      left: 10%;
+      left: 15%;
     }
 
   }
+
+  .victory-screen {
+    border: 6px solid white;
+    background-color: green;
+    border-radius: 10px;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+
+    .winner-message {
+      position: absolute;
+      color: white;
+      font-size: 10em;
+      top: 32%;
+      left: 25%;
+    }
+
+  }
+
 }
 
 
@@ -213,7 +235,14 @@ background-color:yellow;
   width: 0.5%;
 }
 
-.ghost-position {
+.ghost-position1 {
+  width: 3.7%;
+  height: 7.7%;
+  background-color: black;
+  float:left;
+}
+
+.ghost-position2 {
   width: 3.7%;
   height: 7.7%;
   background-color: black;
@@ -225,4 +254,28 @@ background-color:yellow;
   width: 3.7%;
   height: auto;
   z-index: 1;
+}
+
+@media (min-width: 650px) and (max-width: 999px) {
+  body {
+    font-size: 8px;
+  }
+}
+
+@media (min-width: 999px) and (max-width: 1530px) {
+  body {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 999px) and (max-width: 1330px) {
+  body {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 999px) and (max-width: 1200px) {
+  body {
+    font-size: 9px;
+  }
 }
