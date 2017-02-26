@@ -117,7 +117,6 @@
 
     .winner-message {
       position: absolute;
-      color: white;
       font-size: 10em;
       top: 32%;
       left: 25%;
@@ -132,28 +131,9 @@
   width: 3.84%;
   height: auto;
   //padding-top: 1%;
-  margin: 0.5%;
+  margin: -0.25%;
   z-index: 1;
-  animation-name: move;
-  animation-duration: 1s;
 }
-
-.pac-man-top-right{
-  background-color:yellow;
-  height:1.9em;
-  width:3.8em;
-  border-radius:100em 100em 0 0;
-  animation: spin1 0.2s linear;
-}
-
-.pac-man-bottom-right{
-background-color:yellow;
-  height:1.9em;
-  width:3.8em;
-  border-radius:0 0 100em 100em;
-  animation: spin2 0.2s linear;
-}
-
 
 .score{
   position: relative;
@@ -167,21 +147,21 @@ background-color:yellow;
   padding-top: 3.84%;
   width: 3.7%;
   height: 7.7%;
-  background-color: black;
+  background-color: rgb(199, 151, 58);
   float:left;
 }
 
 .current-position {
   width: 3.7%;
   height: 7.7%;
-  background-color: black;
+  background-color: rgb(199, 151, 58);
   float:left;
 }
 
 .exterior-block {
   width: 3.7%;
   height: 7.7%;
-  background-color: blue;
+  background-color: green;
   border: 2px solid black;
   border-radius: 5px;
   float: left;

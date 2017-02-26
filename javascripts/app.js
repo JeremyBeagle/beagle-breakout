@@ -69,8 +69,7 @@ var newGame = {
   checkWin: function() {
     if (newGame.dotCount === 0) {
       ion.sound.play('big-pimpin');
-      $('.victory-screen').toggle();
-      $('.map-height-support').empty();
+      location.window.href = "victory.html";
     }
   },
   findGhost: function(target) {
