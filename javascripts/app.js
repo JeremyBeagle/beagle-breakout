@@ -99,7 +99,6 @@ var newGame = {
         newGame.map[pacManPosition[0]][pacManPosition[1]] = 'path'; //assign former position to interior-block
         pacManPosition[1] -= 1; //decrement current position
         newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man'; //assign class to new position
-        newGame.renderBoard();//renderBoard
         pacManHtml = '<img src="images/beagle.png" class="pac-man">';
         currentPosition = $('.current-position');
         currentPosition.append(pacManHtml);
@@ -111,7 +110,6 @@ var newGame = {
           newGame.map[pacManPosition[0]][pacManPosition[1]] = 'path'; //assign former position to interior-block
           pacManPosition[1] -= 1; //decrement current position
           newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
-          newGame.renderBoard();
           pacManHtml = '<img src="images/beagle.png" class="pac-man">';
           currentPosition = $('.current-position');
           currentPosition.append(pacManHtml);
@@ -132,7 +130,6 @@ var newGame = {
         newGame.map[pacManPosition[0]][pacManPosition[1]] = 'path'; //assign former position to interior-block
         pacManPosition[1] += 1; //decrement current position
         newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
-        newGame.renderBoard();
         pacManHtml = '<img src="images/beagle.png" class="pac-man">';
         currentPosition = $('.current-position');
         currentPosition.append(pacManHtml);
@@ -144,7 +141,6 @@ var newGame = {
           newGame.map[pacManPosition[0]][pacManPosition[1]] = 'path'; //assign former position to interior-block
           pacManPosition[1]+= 1; //decrement current position
           newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
-          newGame.renderBoard();
           pacManHtml = '<img src="images/beagle.png" class="pac-man">';
           currentPosition = $('.current-position');
           currentPosition.append(pacManHtml);}
@@ -164,7 +160,6 @@ var newGame = {
         newGame.map[pacManPosition[0]][pacManPosition[1]] = 'path'; //assign former position to interior-block
         pacManPosition[0] -= 1; //decrement current position
         newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
-        newGame.renderBoard();
         pacManHtml = '<img src="images/beagle.png" class="pac-man">';
         currentPosition = $('.current-position');
         currentPosition.append(pacManHtml);
@@ -176,7 +171,6 @@ var newGame = {
           newGame.map[pacManPosition[0]][pacManPosition[1]] = 'path'; //assign former position to interior-block
           pacManPosition[0]-= 1; //decrement current position
           newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
-          newGame.renderBoard();
           pacManHtml = '<img src="images/beagle.png" class="pac-man">';
           currentPosition = $('.current-position');
           currentPosition.append(pacManHtml);
@@ -197,7 +191,6 @@ var newGame = {
         newGame.map[pacManPosition[0]][pacManPosition[1]] = 'path'; //assign former position to interior-block
         pacManPosition[0] += 1; //decrement current position
         newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
-        newGame.renderBoard();
         pacManHtml = '<img src="images/beagle.png" class="pac-man">';
         currentPosition = $('.current-position');
         currentPosition.append(pacManHtml);
@@ -208,7 +201,6 @@ var newGame = {
           newGame.map[pacManPosition[0]][pacManPosition[1]] = 'path'; //assign former position to interior-block
           pacManPosition[0] += 1; //decrement current position
           newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
-          newGame.renderBoard();
           pacManHtml = '<img src="images/beagle.png" class="pac-man">';
           currentPosition = $('.current-position');
           currentPosition.append(pacManHtml);
@@ -228,7 +220,12 @@ $(document).ready(function () {
   loadSounds();
 
     ion.sound.play("pac-man-hip-hop-intro");
-    newGame.renderBoard(); // renderBoard to show new characters
+
+    renderInterval = setInterval(render, 10);
+
+    function render () {
+      newGame.renderBoard();
+    }
 
     var intervalId = setInterval(move, 75);
     var previous = ghost.previousGhostPosition1;

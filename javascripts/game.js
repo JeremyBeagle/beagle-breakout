@@ -62,7 +62,6 @@ Ghost.prototype.ghostMove = function(previous) {
       newGame.map[ghostPosition1[0]][ghostPosition1[1]] = replacementTile; //assign current tile
       previous = [ghostPosition1[0], ghostPosition1[1]];
       this.ghostPosition1[0] -= 1;
-      newGame.renderBoard();
       return previous;
     }
     else if ( leftIsOpen === true && randomDirection === 3 && this.isEqual(next, previous) === false) {
@@ -70,7 +69,6 @@ Ghost.prototype.ghostMove = function(previous) {
       newGame.map[ghostPosition1[0]][ghostPosition1[1]] = replacementTile;
       previous = [ghostPosition1[0], ghostPosition1[1]];
       this.ghostPosition1[1] -= 1;
-      newGame.renderBoard();
       return previous;
     }
     else if ( downIsOpen === true && randomDirection === 2 && this.isEqual(next, previous) === false) {
@@ -78,7 +76,6 @@ Ghost.prototype.ghostMove = function(previous) {
       newGame.map[ghostPosition1[0]][ghostPosition1[1]] = replacementTile;
       previous = [ghostPosition1[0], ghostPosition1[1]];
       this.ghostPosition1[0] += 1;
-      newGame.renderBoard();
       return previous;
     }
     else if ( rightIsOpen === true && randomDirection == 1 && this.isEqual(next, previous) === false) {
@@ -86,7 +83,6 @@ Ghost.prototype.ghostMove = function(previous) {
       newGame.map[ghostPosition1[0]][ghostPosition1[1]] = replacementTile;
       previous = [ghostPosition1[0], ghostPosition1[1]];
       this.ghostPosition1[1] += 1;
-      newGame.renderBoard();
       return previous;
     }
   return previous;
