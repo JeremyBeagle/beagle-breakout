@@ -45,7 +45,7 @@
       transform: rotate(270deg);
     }
 
-    .red-ghost{
+    .dog-catcher{
       position: absolute;
       width: 35%;
       top:10%;
@@ -90,10 +90,15 @@
 
     .loser-message {
       position: absolute;
-      color: white;
+      color: black;
       font-size: 10em;
       top: 32%;
       left: 15%;
+    }
+
+    img {
+      border-radius: 10px;
+      width: 100%;
     }
 
   }
@@ -184,12 +189,9 @@ background-color:yellow;
 
 .dot {
   position: absolute;
-  margin: -2% 1.5%;
-  background-color: white;
-  border-radius: 50%;
+  margin: -2.75% 0.75%;
   height: auto;
-  padding: 0.4%;
-  width: 0.5%;
+  width: 2%;
 }
 
 .ghost-position1 {
@@ -207,9 +209,9 @@ background-color:yellow;
 }
 
 .ghost {
-  position: absolute;
-  width: 3.7%;
   height: auto;
+  position: absolute;
+  width: 4.7%;
   z-index: 1;
 }
 

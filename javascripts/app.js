@@ -45,18 +45,18 @@ var newGame = {
               blockClass = 'tile ghost-position1';
               blockHtml = '<div class="'+blockClass+'"></div>';
               $('.map-height-support').append(blockHtml);
-              var ghostHtml1 = '<img src="images/red-ghost.png" class="ghost">';
+              var ghostHtml1 = '<img src="images/dog-catcher.png" class="ghost">';
               $('.ghost-position1').append(ghostHtml1);
             }
             else if (tile === 'ghost-1') {
               blockClass = 'tile ghost-position2';
               blockHtml = '<div class="'+blockClass+'"></div>';
               $('.map-height-support').append(blockHtml);
-              var ghostHtml2 = '<img src="images/pink-ghost.png" class="ghost">';
+              var ghostHtml2 = '<img src="images/dog-catcher.png" class="ghost">';
               $('.ghost-position2').append(ghostHtml2);
             }
             else if (tile === 'dot') {
-              blockHtml = '<div class="tile interior-block"><div class="dot"></div></div>';
+              blockHtml = '<div class="tile interior-block"><img class = "dot" src = "images/bone.png"></div></div>';
               $('.map-height-support').append(blockHtml);
               newGame.dotCount += 1;
             }
