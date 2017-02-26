@@ -226,11 +226,7 @@ $(document).ready(function () {
   var ghost = new Ghost(1, [5,14], [6,14]); //create new ghost
   var ghost2 = new Ghost(-1, [5,13], [6,13]);
   loadSounds();
-  $('.game-over-screen').hide();
-  $('.victory-screen').hide();
 
-  $('#start-level').click(function () {
-    $('.start-game-cover').hide();
     ion.sound.play("pac-man-hip-hop-intro");
     newGame.renderBoard(); // renderBoard to show new characters
 
@@ -244,7 +240,6 @@ $(document).ready(function () {
       }
       previous = ghost.ghostMove(previous);
       previous2 = ghost2.ghostMove(previous2);
-    }
 
   });
 
