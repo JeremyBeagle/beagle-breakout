@@ -1,19 +1,20 @@
-function PacMan() {
+function Beagle() { //beagle constructor
   //apply position to hard-coded matrix
-  this.pacManPosition = [9, 13];
   this.direction = '0';
-  newGame.map[this.pacManPosition[0]][this.pacManPosition[1]] = 'pac-man';
+  this.posY = 9;
+  this.posX = 13;
+  newGame.map[this.posY][this.posX] = 'pac-man';
 
   var ghostHtml = '<div class="ghost"></div>';
   $('.ghost-position').append(ghostHtml);
-  var pacManHtml = '<img src="images/beagle.png" class="pac-man">'; //create HTML template
-  $('.current-position').append(pacManHtml); //add pac-man to corresponding div on rendered board
+  var beagleHtml = '<img src="images/beagle.png" class="pac-man">'; //create HTML template
+  $('.current-position').append(beagleHtml); //add pac-man to corresponding div on rendered board
 }
 
-PacMan.prototype.pacAppend = function () {
-  pacManHtml = '<img src="images/beagle.png" class="pac-man">';
+Beagle.prototype.pacAppend = function () {
+  beagleHtml = '<img src="images/beagle.png" class="pac-man">';
   currentPosition = $('.current-position');
-  currentPosition.append(pacManHtml);
+  currentPosition.append(beagleHtml);
 };
 
 
@@ -30,7 +31,7 @@ Ghost.prototype.ghostMove = function(previous) {
   var randomDirection = Math.floor(Math.random() * (5 - 1) + 1);
   var replacementTile;
   var next = this.next(randomDirection);
-  var ghostPosition1 = newGame.findGhost('ghost'+this.id); //begin ghost movement interval
+  var ghostPosition1 = newGame.mapFind('ghost'+this.id); //begin ghost movement interval
 
   //obstacle check
   if (newGame.map[ghostPosition1[0] - 1][ghostPosition1[1]] === 'wall' || newGame.map[ghostPosition1[0] - 1][ghostPosition1[1]] === ('ghost' + (this.id * -1)) ) {
@@ -106,7 +107,7 @@ Ghost.prototype.isEqual = function(array1, array2) {
 
 Ghost.prototype.next = function (randomNumber) {
   var next = [];
-  var ghostPosition1 = newGame.findGhost('ghost' + this.id);
+  var ghostPosition1 = newGame.mapFind('ghost' + this.id);
   if(randomNumber == 4) {
     next = [ghostPosition1[0]-1, ghostPosition1[1]];
   } else if (randomNumber == 3) {

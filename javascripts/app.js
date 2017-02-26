@@ -36,9 +36,9 @@ var newGame = {
               blockClass = 'tile current-position';
               blockHtml = '<div class="'+blockClass+'"></div>';
               $('.map-height-support').append(blockHtml);
-              pacManHtml = '<img src="images/beagle.png" class="pac-man">';
+              beagleHtml = '<img src="images/beagle.png" class="pac-man">';
               currentPosition = $('.current-position');
-              currentPosition.append(pacManHtml);
+              currentPosition.append(beagleHtml);
               $('.pac-man').css({'transform' : 'rotate('+newGame.direction+'deg)'});
             }
             else if (tile === 'ghost1') {
@@ -72,7 +72,7 @@ var newGame = {
       location.window.href = "victory.html";
     }
   },
-  findGhost: function(target) {
+  mapFind: function(target) {
     for( var i = 0; i < this.map.length; i += 1) {
       for (var j = 0; j <this.map[1].length; j += 1) {
         if (this.map[i][j] === target) {
@@ -83,127 +83,129 @@ var newGame = {
     return undefined;
   },
   move: function(string) {
-    var pacManHtml;
-    var pacManPosition = newGame.findGhost('pac-man');
+    var beagleHtml;
+    var beaglePosition = newGame.mapFind('pac-man');
+    let posY = beaglePosition[0];
+    let posX = beaglePosition[1];
 
       switch(string) {
         case 'left':
-        if (  newGame.map[pacManPosition[0]][pacManPosition[1]-1] === 'wall') {
+        if (  newGame.map[posY][posX-1] === 'wall') {
           return;
-        } else if(newGame.map[pacManPosition[0]][pacManPosition[1]-1] === 'dot'){
+        } else if(newGame.map[posY][posX-1] === 'dot'){
         ion.sound.play('water-drop');
         newGame.dotCount -= 1;
         newGame.score += 10;
         newGame.updateScore();
-        $('.pac-man').remove(); //remove pacman from current div
-        newGame.map[pacManPosition[0]][pacManPosition[1]] = 'path'; //assign former position to interior-block
-        pacManPosition[1] -= 1; //decrement current position
-        newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man'; //assign class to new position
-        pacManHtml = '<img src="images/beagle.png" class="pac-man">';
+        $('.pac-man').remove(); //remove beagle from current div
+        newGame.map[posY][posX] = 'path'; //assign former position to interior-block
+        posX -= 1; //decrement current position
+        newGame.map[posY][posX] = 'pac-man'; //assign class to new position
+        beagleHtml = '<img src="images/beagle.png" class="pac-man">';
         currentPosition = $('.current-position');
-        currentPosition.append(pacManHtml);
+        currentPosition.append(beagleHtml);
         newGame.direction = '90';
         $('.pac-man').css({'transform' : 'rotate(90deg)'});
         }
-        else if(newGame.map[pacManPosition[0]][pacManPosition[1]-1] === 'path') {
-          $('.pac-man').remove(); //remove pacman from current div
-          newGame.map[pacManPosition[0]][pacManPosition[1]] = 'path'; //assign former position to interior-block
-          pacManPosition[1] -= 1; //decrement current position
-          newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
-          pacManHtml = '<img src="images/beagle.png" class="pac-man">';
+        else if(newGame.map[posY][posX-1] === 'path') {
+          $('.pac-man').remove(); //remove beagle from current div
+          newGame.map[posY][posX] = 'path'; //assign former position to interior-block
+          posX -= 1; //decrement current position
+          newGame.map[posY][posX] = 'pac-man';
+          beagleHtml = '<img src="images/beagle.png" class="pac-man">';
           currentPosition = $('.current-position');
-          currentPosition.append(pacManHtml);
+          currentPosition.append(beagleHtml);
           newGame.direction = '90';
           $('.pac-man').css({'transform' : 'rotate(90deg)'});
         }
         break;
 
         case 'right':
-        if (  newGame.map[pacManPosition[0]][pacManPosition[1]+1] === 'wall') {
+        if (  newGame.map[posY][posX+1] === 'wall') {
           return;
-        } else if(newGame.map[pacManPosition[0]][pacManPosition[1]+1] === 'dot'){
+        } else if(newGame.map[posY][posX+1] === 'dot'){
         ion.sound.play('water-drop');
         newGame.dotCount -= 1;
         newGame.score += 10;
         newGame.updateScore();
-        $('.pac-man').remove(); //remove pacman from current div
-        newGame.map[pacManPosition[0]][pacManPosition[1]] = 'path'; //assign former position to interior-block
-        pacManPosition[1] += 1; //decrement current position
-        newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
-        pacManHtml = '<img src="images/beagle.png" class="pac-man">';
+        $('.pac-man').remove(); //remove beagle from current div
+        newGame.map[posY][posX] = 'path'; //assign former position to interior-block
+        posX += 1; //decrement current position
+        newGame.map[posY][posX] = 'pac-man';
+        beagleHtml = '<img src="images/beagle.png" class="pac-man">';
         currentPosition = $('.current-position');
-        currentPosition.append(pacManHtml);
+        currentPosition.append(beagleHtml);
         newGame.direction = '270';
         $('.pac-man').css({'transform' : 'rotate(270deg)'});
         }
-        else if(newGame.map[pacManPosition[0]][pacManPosition[1]+1] === 'path') {
-          $('.pac-man').remove(); //remove pacman from current div
-          newGame.map[pacManPosition[0]][pacManPosition[1]] = 'path'; //assign former position to interior-block
-          pacManPosition[1]+= 1; //decrement current position
-          newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
-          pacManHtml = '<img src="images/beagle.png" class="pac-man">';
+        else if(newGame.map[posY][posX+1] === 'path') {
+          $('.pac-man').remove(); //remove beagle from current div
+          newGame.map[posY][posX] = 'path'; //assign former position to interior-block
+          posX+= 1; //decrement current position
+          newGame.map[posY][posX] = 'pac-man';
+          beagleHtml = '<img src="images/beagle.png" class="pac-man">';
           currentPosition = $('.current-position');
-          currentPosition.append(pacManHtml);}
+          currentPosition.append(beagleHtml);}
           newGame.direction = '270';
           $('.pac-man').css({'transform' : 'rotate(270deg)'});
         break;
 
         case 'up':
-        if (  newGame.map[pacManPosition[0] - 1][pacManPosition[1]] === 'wall') {
+        if (  newGame.map[posY - 1][posX] === 'wall') {
           return;
-        } else if(newGame.map[pacManPosition[0] - 1][pacManPosition[1]] === 'dot'){
+        } else if(newGame.map[posY - 1][posX] === 'dot'){
         ion.sound.play('water-drop');
         newGame.dotCount -= 1;
         newGame.score += 10;
         newGame.updateScore();
-        $('.pac-man').remove(); //remove pacman from current div
-        newGame.map[pacManPosition[0]][pacManPosition[1]] = 'path'; //assign former position to interior-block
-        pacManPosition[0] -= 1; //decrement current position
-        newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
-        pacManHtml = '<img src="images/beagle.png" class="pac-man">';
+        $('.pac-man').remove(); //remove beagle from current div
+        newGame.map[posY][posX] = 'path'; //assign former position to interior-block
+        posY -= 1; //decrement current position
+        newGame.map[posY][posX] = 'pac-man';
+        beagleHtml = '<img src="images/beagle.png" class="pac-man">';
         currentPosition = $('.current-position');
-        currentPosition.append(pacManHtml);
+        currentPosition.append(beagleHtml);
         newGame.direction = '180';
         $('.pac-man').css({'transform' : 'rotate(180deg)'});
         }
-        else if(newGame.map[pacManPosition[0] - 1][pacManPosition[1]] === 'path') {
-          $('.pac-man').remove(); //remove pacman from current div
-          newGame.map[pacManPosition[0]][pacManPosition[1]] = 'path'; //assign former position to interior-block
-          pacManPosition[0]-= 1; //decrement current position
-          newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
-          pacManHtml = '<img src="images/beagle.png" class="pac-man">';
+        else if(newGame.map[posY - 1][posX] === 'path') {
+          $('.pac-man').remove(); //remove beagle from current div
+          newGame.map[posY][posX] = 'path'; //assign former position to interior-block
+          posY-= 1; //decrement current position
+          newGame.map[posY][posX] = 'pac-man';
+          beagleHtml = '<img src="images/beagle.png" class="pac-man">';
           currentPosition = $('.current-position');
-          currentPosition.append(pacManHtml);
+          currentPosition.append(beagleHtml);
           newGame.direction = '180';
           $('.pac-man').css({'transform' : 'rotate(180deg)'});
         }
         break;
 
         case 'down':
-        if (  newGame.map[pacManPosition[0] + 1][pacManPosition[1]] === 'wall') {
+        if (  newGame.map[posY + 1][posX] === 'wall') {
           return;
-        } else if(newGame.map[pacManPosition[0] + 1][pacManPosition[1]] === 'dot'){
+        } else if(newGame.map[posY + 1][posX] === 'dot'){
         ion.sound.play('water-drop');
         newGame.dotCount -= 1;
         newGame.score += 10;
         newGame.updateScore();
-        $('.pac-man').remove(); //remove pacman from current div
-        newGame.map[pacManPosition[0]][pacManPosition[1]] = 'path'; //assign former position to interior-block
-        pacManPosition[0] += 1; //decrement current position
-        newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
-        pacManHtml = '<img src="images/beagle.png" class="pac-man">';
+        $('.pac-man').remove(); //remove beagle from current div
+        newGame.map[posY][posX] = 'path'; //assign former position to interior-block
+        posY += 1; //decrement current position
+        newGame.map[posY][posX] = 'pac-man';
+        beagleHtml = '<img src="images/beagle.png" class="pac-man">';
         currentPosition = $('.current-position');
-        currentPosition.append(pacManHtml);
+        currentPosition.append(beagleHtml);
         newGame.direction = '0';
         }
-        else if(newGame.map[pacManPosition[0] + 1][pacManPosition[1]] === 'path') {
-          $('.pac-man').remove(); //remove pacman from current div
-          newGame.map[pacManPosition[0]][pacManPosition[1]] = 'path'; //assign former position to interior-block
-          pacManPosition[0] += 1; //decrement current position
-          newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
-          pacManHtml = '<img src="images/beagle.png" class="pac-man">';
+        else if(newGame.map[posY + 1][posX] === 'path') {
+          $('.pac-man').remove(); //remove beagle from current div
+          newGame.map[posY][posX] = 'path'; //assign former position to interior-block
+          posY += 1; //decrement current position
+          newGame.map[posY][posX] = 'pac-man';
+          beagleHtml = '<img src="images/beagle.png" class="pac-man">';
           currentPosition = $('.current-position');
-          currentPosition.append(pacManHtml);
+          currentPosition.append(beagleHtml);
           newGame.direction = '0';
         break;
       }
@@ -214,7 +216,7 @@ var newGame = {
 
 $(document).ready(function () {
 
-  var pacMan = new PacMan(); //create new pac-man
+  var beagle = new Beagle(); //create new pac-man
   var ghost = new Ghost(1, [5,14], [6,14]); //create new ghost
   var ghost2 = new Ghost(-1, [5,13], [6,13]);
   loadSounds();
@@ -232,17 +234,17 @@ $(document).ready(function () {
     var previous2 = ghost2.previousGhostPosition1;
 
     function move () {
-      if(newGame.findGhost('pac-man') === undefined) {
+      if(newGame.mapFind('pac-man') === undefined) {
         clearInterval(intervalId);
       }
       previous = ghost.ghostMove(previous);
       previous2 = ghost2.ghostMove(previous2);
     }
 
-  $(document).keydown(movePacMan);
+  $(document).keydown(movebeagle);
 });
 
-function movePacMan(ev) {
+function movebeagle(ev) {
   var acceptableKeys = [ 37, 65, 38, 87, 39, 68, 40, 83 ];
 
   if (!acceptableKeys.includes(ev.keyCode)) {
