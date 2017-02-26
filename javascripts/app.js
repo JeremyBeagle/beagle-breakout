@@ -36,7 +36,7 @@ var newGame = {
               blockClass = 'tile current-position';
               blockHtml = '<div class="'+blockClass+'"></div>';
               $('.map-height-support').append(blockHtml);
-              pacManHtml = '<img src="img/beagle-tower.png" class="pac-man">';
+              pacManHtml = '<img src="images/beagle.png" class="pac-man">';
               currentPosition = $('.current-position');
               currentPosition.append(pacManHtml);
               $('.pac-man').css({'transform' : 'rotate('+newGame.direction+'deg)'});
@@ -45,14 +45,14 @@ var newGame = {
               blockClass = 'tile ghost-position1';
               blockHtml = '<div class="'+blockClass+'"></div>';
               $('.map-height-support').append(blockHtml);
-              var ghostHtml1 = '<img src="img/red-ghost.png" class="ghost">';
+              var ghostHtml1 = '<img src="images/red-ghost.png" class="ghost">';
               $('.ghost-position1').append(ghostHtml1);
             }
             else if (tile === 'ghost-1') {
               blockClass = 'tile ghost-position2';
               blockHtml = '<div class="'+blockClass+'"></div>';
               $('.map-height-support').append(blockHtml);
-              var ghostHtml2 = '<img src="img/pink-ghost.ico" class="ghost">';
+              var ghostHtml2 = '<img src="images/pink-ghost.png" class="ghost">';
               $('.ghost-position2').append(ghostHtml2);
             }
             else if (tile === 'dot') {
@@ -101,7 +101,7 @@ var newGame = {
         pacManPosition[1] -= 1; //decrement current position
         newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man'; //assign class to new position
         newGame.renderBoard();//renderBoard
-        pacManHtml = '<img src="img/beagle-tower.png" class="pac-man">';
+        pacManHtml = '<img src="images/beagle.png" class="pac-man">';
         currentPosition = $('.current-position');
         currentPosition.append(pacManHtml);
         newGame.direction = '90';
@@ -113,7 +113,7 @@ var newGame = {
           pacManPosition[1] -= 1; //decrement current position
           newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
           newGame.renderBoard();
-          pacManHtml = '<img src="img/beagle-tower.png" class="pac-man">';
+          pacManHtml = '<img src="images/beagle.png" class="pac-man">';
           currentPosition = $('.current-position');
           currentPosition.append(pacManHtml);
           newGame.direction = '90';
@@ -134,7 +134,7 @@ var newGame = {
         pacManPosition[1] += 1; //decrement current position
         newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
         newGame.renderBoard();
-        pacManHtml = '<img src="img/beagle-tower.png" class="pac-man">';
+        pacManHtml = '<img src="images/beagle.png" class="pac-man">';
         currentPosition = $('.current-position');
         currentPosition.append(pacManHtml);
         newGame.direction = '270';
@@ -146,7 +146,7 @@ var newGame = {
           pacManPosition[1]+= 1; //decrement current position
           newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
           newGame.renderBoard();
-          pacManHtml = '<img src="img/beagle-tower.png" class="pac-man">';
+          pacManHtml = '<img src="images/beagle.png" class="pac-man">';
           currentPosition = $('.current-position');
           currentPosition.append(pacManHtml);}
           newGame.direction = '270';
@@ -166,7 +166,7 @@ var newGame = {
         pacManPosition[0] -= 1; //decrement current position
         newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
         newGame.renderBoard();
-        pacManHtml = '<img src="img/beagle-tower.png" class="pac-man">';
+        pacManHtml = '<img src="images/beagle.png" class="pac-man">';
         currentPosition = $('.current-position');
         currentPosition.append(pacManHtml);
         newGame.direction = '180';
@@ -178,7 +178,7 @@ var newGame = {
           pacManPosition[0]-= 1; //decrement current position
           newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
           newGame.renderBoard();
-          pacManHtml = '<img src="img/beagle-tower.png" class="pac-man">';
+          pacManHtml = '<img src="images/beagle.png" class="pac-man">';
           currentPosition = $('.current-position');
           currentPosition.append(pacManHtml);
           newGame.direction = '180';
@@ -199,7 +199,7 @@ var newGame = {
         pacManPosition[0] += 1; //decrement current position
         newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
         newGame.renderBoard();
-        pacManHtml = '<img src="img/beagle-tower.png" class="pac-man">';
+        pacManHtml = '<img src="images/beagle.png" class="pac-man">';
         currentPosition = $('.current-position');
         currentPosition.append(pacManHtml);
         newGame.direction = '0';
@@ -210,7 +210,7 @@ var newGame = {
           pacManPosition[0] += 1; //decrement current position
           newGame.map[pacManPosition[0]][pacManPosition[1]] = 'pac-man';
           newGame.renderBoard();
-          pacManHtml = '<img src="img/beagle-tower.png" class="pac-man">';
+          pacManHtml = '<img src="images/beagle.png" class="pac-man">';
           currentPosition = $('.current-position');
           currentPosition.append(pacManHtml);
           newGame.direction = '0';
@@ -222,6 +222,7 @@ var newGame = {
 };
 
 $(document).ready(function () {
+
   var pacMan = new PacMan(); //create new pac-man
   var ghost = new Ghost(1, [5,14], [6,14]); //create new ghost
   var ghost2 = new Ghost(-1, [5,13], [6,13]);
@@ -240,8 +241,7 @@ $(document).ready(function () {
       }
       previous = ghost.ghostMove(previous);
       previous2 = ghost2.ghostMove(previous2);
-
-  });
+    }
 
   $(document).keydown(movePacMan);
 });

@@ -6,12 +6,12 @@ function PacMan() {
 
   var ghostHtml = '<div class="ghost"></div>';
   $('.ghost-position').append(ghostHtml);
-  var pacManHtml = '<img src="img/beagle-tower.png" class="pac-man">'; //create HTML template
+  var pacManHtml = '<img src="images/beagle.png" class="pac-man">'; //create HTML template
   $('.current-position').append(pacManHtml); //add pac-man to corresponding div on rendered board
 }
 
 PacMan.prototype.pacAppend = function () {
-  pacManHtml = '<img src="img/beagle-tower.png" class="pac-man">';
+  pacManHtml = '<img src="images/beagle.png" class="pac-man">';
   currentPosition = $('.current-position');
   currentPosition.append(pacManHtml);
 };
@@ -53,7 +53,7 @@ Ghost.prototype.ghostMove = function(previous) {
     } else if (newGame.map[next[0]][next[1]]==='pac-man') {
       replacementTile = 'path';
       $('.map-height-support').empty();
-      $('.game-over-screen').toggle();
+      window.location.href = "game-over.html";
       return;
     }
 
