@@ -22,10 +22,7 @@ Beagle.prototype.move = function(string) {
             return;
           }
           else if(this.isBone(string) === true){
-          ion.sound.play('water-drop');
-          newGame.dotCount -= 1;
-          newGame.score += 10;
-          newGame.updateScore();
+          this.eat();
           this.shift(string);
           this.turn(string);
           }
@@ -40,10 +37,7 @@ Beagle.prototype.move = function(string) {
             return;
           }
           else if(this.isBone(string) ===true){
-          ion.sound.play('water-drop');
-          newGame.dotCount -= 1;
-          newGame.score += 10;
-          newGame.updateScore();
+          this.eat();
           this.shift(string);
           this.turn(string);
           }
@@ -58,10 +52,7 @@ Beagle.prototype.move = function(string) {
             return;
           }
           else if (this.isBone(string) === true){
-          ion.sound.play('water-drop');
-          newGame.dotCount -= 1;
-          newGame.score += 10;
-          newGame.updateScore();
+          this.eat();
           this.shift(string);
           this.turn(string);
           }
@@ -76,10 +67,7 @@ Beagle.prototype.move = function(string) {
             return;
           }
           else if(this.isBone(string) === true){
-          ion.sound.play('water-drop');
-          newGame.dotCount -= 1;
-          newGame.score += 10;
-          newGame.updateScore();
+          this.eat();
           this.shift(string);
           this.turn(string);
           }
@@ -97,7 +85,7 @@ Beagle.prototype.move = function(string) {
   currentPosition.append(beagleHtml);
 };
 
-    Beagle.prototype.turn = function (string) {
+Beagle.prototype.turn = function (string) {
       switch(string){
 
         case 'left':
@@ -121,7 +109,7 @@ Beagle.prototype.move = function(string) {
       }
     };
 
-    Beagle.prototype.isBlocked = function (string) {
+Beagle.prototype.isBlocked = function (string) {
 
       let beaglePosition = newGame.mapFind('pac-man');
       let posY = beaglePosition[0];
@@ -155,7 +143,7 @@ Beagle.prototype.move = function(string) {
       return false;
     };
 
-    Beagle.prototype.isBone = function (string) {
+Beagle.prototype.isBone = function (string) {
 
       let beaglePosition = newGame.mapFind('pac-man');
       let posY = beaglePosition[0];
@@ -189,7 +177,7 @@ Beagle.prototype.move = function(string) {
       return false;
     };
 
-    Beagle.prototype.shift = function (string) {
+Beagle.prototype.shift = function (string) {
       let beaglePosition = newGame.mapFind('pac-man');
       let posY = beaglePosition[0];
       let posX = beaglePosition[1];
@@ -216,4 +204,11 @@ Beagle.prototype.move = function(string) {
       beagleHtml = '<img src="images/beagle.png" class="pac-man">';
       currentPosition = $('.current-position');
       currentPosition.append(beagleHtml);
+    };
+
+Beagle.prototype.eat = function() {
+      ion.sound.play('water-drop');
+      newGame.dotCount -= 1;
+      newGame.score += 10;
+      newGame.updateScore();
     };
