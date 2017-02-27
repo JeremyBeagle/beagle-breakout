@@ -1,4 +1,4 @@
-var newGame = {
+let newGame = {
   map:     [['wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall'],
             ['wall','dot','dot', 'dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','wall'],
             ['wall','dot','wall','wall', 'wall', 'wall', 'dot', 'dot', 'dot', 'wall', 'dot', 'dot', 'dot', 'dot','dot','dot', 'dot', 'wall', 'dot', 'dot', 'dot', 'wall', 'wall', 'wall', 'wall', 'dot', 'wall'],
@@ -14,14 +14,14 @@ var newGame = {
           ],
   score: 0,
   dotCount: 0,
-  renderBoard: function () {
+  renderBoard: () => {
     //read, style, and append to DOM based on string contents of hard-coded matrix
       $('.map-height-support').empty();
-      var blockClass;
-      var blockHtml;
+      let blockClass;
+      let blockHtml;
       newGame.dotCount = 0;
-      newGame.map.forEach(function(row) {
-          row.forEach(function (tile) {
+      newGame.map.forEach((row) => {
+          row.forEach((tile) => {
             if (tile === 'path') {
               blockClass = 'tile interior-block';
               blockHtml = '<div class="'+blockClass+'"></div>';
@@ -45,14 +45,14 @@ var newGame = {
               blockClass = 'tile ghost-position1';
               blockHtml = '<div class="'+blockClass+'"></div>';
               $('.map-height-support').append(blockHtml);
-              var ghostHtml1 = '<img src="images/dog-catcher.png" class="ghost">';
+              let ghostHtml1 = '<img src="images/dog-catcher.png" class="ghost">';
               $('.ghost-position1').append(ghostHtml1);
             }
             else if (tile === 'ghost-1') {
               blockClass = 'tile ghost-position2';
               blockHtml = '<div class="'+blockClass+'"></div>';
               $('.map-height-support').append(blockHtml);
-              var ghostHtml2 = '<img src="images/dog-catcher.png" class="ghost">';
+              let ghostHtml2 = '<img src="images/dog-catcher.png" class="ghost">';
               $('.ghost-position2').append(ghostHtml2);
             }
             else if (tile === 'dot') {
@@ -63,18 +63,18 @@ var newGame = {
           });
       });
   },
-  updateScore: function () {
+  updateScore: () => {
     $('.score').html("Score: " + newGame.score);
   },
-  checkWin: function() {
+  checkWin: () => {
     if (newGame.dotCount === 0) {
       ion.sound.play('big-pimpin');
       window.location.href = "victory.html";
     }
   },
-  mapFind: function(target) {
-    for( var i = 0; i < this.map.length; i += 1) {
-      for (var j = 0; j <this.map[1].length; j += 1) {
+  mapFind: (target) => {
+    for( let i = 0; i < this.map.length; i += 1) {
+      for (let j = 0; j <this.map[1].length; j += 1) {
         if (this.map[i][j] === target) {
           return [i, j];
         }
@@ -82,145 +82,57 @@ var newGame = {
     }
     return undefined;
   },
-  move: function(string) {
-    var beagleHtml;
-    var beaglePosition = newGame.mapFind('pac-man');
-    let posY = beaglePosition[0];
-    let posX = beaglePosition[1];
+  beagle: new Beagle(),
+  ghost: new Ghost(1, [5,14], [6,14]),
+  ghost2: new Ghost(-1, [5,13], [6,13]),
+  spawnBeagle: () => {
+    this.map[this.beagle.posY][this.beagle.posX] = 'pac-man';
+  },
+  spawnGhost: () => {
+    this.map[this.ghost.posY][this.ghost.posX] = `ghost${this.ghost.id}`;
+    this.map[this.ghost2.posY][this.ghost2.posX] = `ghost${this.ghost2.id}`;
+  },
+  keyListen: (ev) => {
+    let acceptableKeys = [ 37, 65, 38, 87, 39, 68, 40, 83 ];
+    if (!acceptableKeys.includes(ev.keyCode)) {
+      return;
+    }
+    // prevent arrow key scrolling
+    ev.preventDefault();
 
-      switch(string) {
-        case 'left':
-        if (  newGame.map[posY][posX-1] === 'wall') {
-          return;
-        } else if(newGame.map[posY][posX-1] === 'dot'){
-        ion.sound.play('water-drop');
-        newGame.dotCount -= 1;
-        newGame.score += 10;
-        newGame.updateScore();
-        $('.pac-man').remove(); //remove beagle from current div
-        newGame.map[posY][posX] = 'path'; //assign former position to interior-block
-        posX -= 1; //decrement current position
-        newGame.map[posY][posX] = 'pac-man'; //assign class to new position
-        beagleHtml = '<img src="images/beagle.png" class="pac-man">';
-        currentPosition = $('.current-position');
-        currentPosition.append(beagleHtml);
-        newGame.direction = '90';
-        $('.pac-man').css({'transform' : 'rotate(90deg)'});
-        }
-        else if(newGame.map[posY][posX-1] === 'path') {
-          $('.pac-man').remove(); //remove beagle from current div
-          newGame.map[posY][posX] = 'path'; //assign former position to interior-block
-          posX -= 1; //decrement current position
-          newGame.map[posY][posX] = 'pac-man';
-          beagleHtml = '<img src="images/beagle.png" class="pac-man">';
-          currentPosition = $('.current-position');
-          currentPosition.append(beagleHtml);
-          newGame.direction = '90';
-          $('.pac-man').css({'transform' : 'rotate(90deg)'});
-        }
+    // 4. move board in object based on keypresses (up, down, left, right)
+    // move if correct keys were pressed
+    switch (ev.keyCode) {
+      case 37:  // left arrow
+      case 65:  // a
+      console.log(newGame.beagle);
+        newGame.beagle.move('left');
         break;
-
-        case 'right':
-        if (  newGame.map[posY][posX+1] === 'wall') {
-          return;
-        } else if(newGame.map[posY][posX+1] === 'dot'){
-        ion.sound.play('water-drop');
-        newGame.dotCount -= 1;
-        newGame.score += 10;
-        newGame.updateScore();
-        $('.pac-man').remove(); //remove beagle from current div
-        newGame.map[posY][posX] = 'path'; //assign former position to interior-block
-        posX += 1; //decrement current position
-        newGame.map[posY][posX] = 'pac-man';
-        beagleHtml = '<img src="images/beagle.png" class="pac-man">';
-        currentPosition = $('.current-position');
-        currentPosition.append(beagleHtml);
-        newGame.direction = '270';
-        $('.pac-man').css({'transform' : 'rotate(270deg)'});
-        }
-        else if(newGame.map[posY][posX+1] === 'path') {
-          $('.pac-man').remove(); //remove beagle from current div
-          newGame.map[posY][posX] = 'path'; //assign former position to interior-block
-          posX+= 1; //decrement current position
-          newGame.map[posY][posX] = 'pac-man';
-          beagleHtml = '<img src="images/beagle.png" class="pac-man">';
-          currentPosition = $('.current-position');
-          currentPosition.append(beagleHtml);}
-          newGame.direction = '270';
-          $('.pac-man').css({'transform' : 'rotate(270deg)'});
+      case 38:  // up arrow
+      case 87:  // w
+        newGame.beagle.move('up');
         break;
-
-        case 'up':
-        if (  newGame.map[posY - 1][posX] === 'wall') {
-          return;
-        } else if(newGame.map[posY - 1][posX] === 'dot'){
-        ion.sound.play('water-drop');
-        newGame.dotCount -= 1;
-        newGame.score += 10;
-        newGame.updateScore();
-        $('.pac-man').remove(); //remove beagle from current div
-        newGame.map[posY][posX] = 'path'; //assign former position to interior-block
-        posY -= 1; //decrement current position
-        newGame.map[posY][posX] = 'pac-man';
-        beagleHtml = '<img src="images/beagle.png" class="pac-man">';
-        currentPosition = $('.current-position');
-        currentPosition.append(beagleHtml);
-        newGame.direction = '180';
-        $('.pac-man').css({'transform' : 'rotate(180deg)'});
-        }
-        else if(newGame.map[posY - 1][posX] === 'path') {
-          $('.pac-man').remove(); //remove beagle from current div
-          newGame.map[posY][posX] = 'path'; //assign former position to interior-block
-          posY-= 1; //decrement current position
-          newGame.map[posY][posX] = 'pac-man';
-          beagleHtml = '<img src="images/beagle.png" class="pac-man">';
-          currentPosition = $('.current-position');
-          currentPosition.append(beagleHtml);
-          newGame.direction = '180';
-          $('.pac-man').css({'transform' : 'rotate(180deg)'});
-        }
+      case 39:  // right arrow
+      case 68:  // d
+        newGame.beagle.move('right');
         break;
-
-        case 'down':
-        if (  newGame.map[posY + 1][posX] === 'wall') {
-          return;
-        } else if(newGame.map[posY + 1][posX] === 'dot'){
-        ion.sound.play('water-drop');
-        newGame.dotCount -= 1;
-        newGame.score += 10;
-        newGame.updateScore();
-        $('.pac-man').remove(); //remove beagle from current div
-        newGame.map[posY][posX] = 'path'; //assign former position to interior-block
-        posY += 1; //decrement current position
-        newGame.map[posY][posX] = 'pac-man';
-        beagleHtml = '<img src="images/beagle.png" class="pac-man">';
-        currentPosition = $('.current-position');
-        currentPosition.append(beagleHtml);
-        newGame.direction = '0';
-        }
-        else if(newGame.map[posY + 1][posX] === 'path') {
-          $('.pac-man').remove(); //remove beagle from current div
-          newGame.map[posY][posX] = 'path'; //assign former position to interior-block
-          posY += 1; //decrement current position
-          newGame.map[posY][posX] = 'pac-man';
-          beagleHtml = '<img src="images/beagle.png" class="pac-man">';
-          currentPosition = $('.current-position');
-          currentPosition.append(beagleHtml);
-          newGame.direction = '0';
+      case 40:  // down arrow
+      case 83:  // s
+        newGame.beagle.move('down');
         break;
-      }
-      }
+    }
   }
+
 };
 
 $(document).ready(function () {
 
-  var beagle = new Beagle(); //create new pac-man
-  var ghost = new Ghost(1, [5,14], [6,14]); //create new ghost
-  var ghost2 = new Ghost(-1, [5,13], [6,13]);
   loadSounds();
 
     ion.sound.play("pac-man-hip-hop-intro");
+
+    newGame.spawnBeagle(); //place beagle on map
+    newGame.spawnGhost(); //place dog-catchers on map
 
     renderInterval = setInterval(render, 10);
 
@@ -229,52 +141,24 @@ $(document).ready(function () {
       newGame.checkWin();
     }
 
-    var intervalId = setInterval(move, 75);
-    var previous = ghost.previousGhostPosition1;
-    var previous2 = ghost2.previousGhostPosition1;
+    let intervalId = setInterval(move, 75);
+    let previous = [newGame.ghost.lastPosY, newGame.ghost.lastPosX];
+    let previous2 = [newGame.ghost2.lastPosY, newGame.ghost2.lastPosX];
 
     function move () {
       if(newGame.mapFind('pac-man') === undefined) {
         clearInterval(intervalId);
       }
-      previous = ghost.ghostMove(previous);
-      previous2 = ghost2.ghostMove(previous2);
+      previous = newGame.ghost.ghostMove(previous);
+      previous2 = newGame.ghost2.ghostMove(previous2);
     }
 
-  $(document).keydown(movebeagle);
+  $(document).keydown(keyListen);
 });
 
-function movebeagle(ev) {
-  var acceptableKeys = [ 37, 65, 38, 87, 39, 68, 40, 83 ];
+//how can I get beagle to KeyListen?
 
-  if (!acceptableKeys.includes(ev.keyCode)) {
-    return;
-  }
 
-  // prevent arrow key scrolling
-  ev.preventDefault();
-
-  // 4. move board in object based on keypresses (up, down, left, right)
-  // move if correct keys were pressed
-  switch (ev.keyCode) {
-    case 37:  // left arrow
-    case 65:  // a
-      newGame.move('left');
-      break;
-    case 38:  // up arrow
-    case 87:  // w
-      newGame.move('up');
-      break;
-    case 39:  // right arrow
-    case 68:  // d
-      newGame.move('right');
-      break;
-    case 40:  // down arrow
-    case 83:  // s
-      newGame.move('down');
-      break;
-  }
-}
 
 function loadSounds() {
     ion.sound({
