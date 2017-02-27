@@ -23,12 +23,13 @@ Beagle.prototype.move = function(string) {
           }
           else if(this.isBone(string) === true){
           this.eat();
-          this.step(string);
           this.turn(string);
+          this.step(string);
+
           }
           else if(newGame.map[posY][posX-1] === 'path') {
-            this.step(string);
             this.turn(string);
+            this.step(string);
           }
           break;
 
@@ -38,12 +39,12 @@ Beagle.prototype.move = function(string) {
           }
           else if(this.isBone(string) ===true){
           this.eat();
-          this.step(string);
           this.turn(string);
+          this.step(string);
           }
           else if(newGame.map[posY][posX+1] === 'path') {
-            this.step(string);
             this.turn(string);
+            this.step(string);
           }
           break;
 
@@ -53,12 +54,12 @@ Beagle.prototype.move = function(string) {
           }
           else if (this.isBone(string) === true){
           this.eat();
-          this.step(string);
           this.turn(string);
+          this.step(string);
           }
           else if(newGame.map[posY - 1][posX] === 'path') {
-            this.step(string);
             this.turn(string);
+            this.step(string);
           }
           break;
 
@@ -68,18 +69,18 @@ Beagle.prototype.move = function(string) {
           }
           else if(this.isBone(string) === true){
           this.eat();
-          this.step(string);
           this.turn(string);
+          this.step(string);
           }
           else if(newGame.map[posY + 1][posX] === 'path') {
-            this.step(string);
-            this.turn(string);
+          this.turn(string);
+          this.step(string);
         }
         break;
       }
     };
 
-    Beagle.prototype.pacAppend = () => {
+Beagle.prototype.pacAppend = () => {
   beagleHtml = '<img src="images/beagle.png" class="pac-man">';
   currentPosition = $('.current-position');
   currentPosition.append(beagleHtml);
