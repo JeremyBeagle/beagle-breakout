@@ -26,23 +26,11 @@ Beagle.prototype.move = function(string) {
           newGame.dotCount -= 1;
           newGame.score += 10;
           newGame.updateScore();
-          $('.pac-man').remove(); //remove beagle from current div
-          newGame.map[posY][posX] = 'path'; //assign former position to interior-block
-          posX -= 1; //decrement current position
-          newGame.map[posY][posX] = 'pac-man'; //assign class to new position
-          beagleHtml = '<img src="images/beagle.png" class="pac-man">';
-          currentPosition = $('.current-position');
-          currentPosition.append(beagleHtml);
+          this.shift(string);
           this.turn(string);
           }
           else if(newGame.map[posY][posX-1] === 'path') {
-            $('.pac-man').remove(); //remove beagle from current div
-            newGame.map[posY][posX] = 'path'; //assign former position to interior-block
-            posX -= 1; //decrement current position
-            newGame.map[posY][posX] = 'pac-man';
-            beagleHtml = '<img src="images/beagle.png" class="pac-man">';
-            currentPosition = $('.current-position');
-            currentPosition.append(beagleHtml);
+            this.shift(string);
             this.turn(string);
           }
           break;
@@ -56,23 +44,11 @@ Beagle.prototype.move = function(string) {
           newGame.dotCount -= 1;
           newGame.score += 10;
           newGame.updateScore();
-          $('.pac-man').remove(); //remove beagle from current div
-          newGame.map[posY][posX] = 'path'; //assign former position to interior-block
-          posX += 1; //decrement current position
-          newGame.map[posY][posX] = 'pac-man';
-          beagleHtml = '<img src="images/beagle.png" class="pac-man">';
-          currentPosition = $('.current-position');
-          currentPosition.append(beagleHtml);
+          this.shift(string);
           this.turn(string);
           }
           else if(newGame.map[posY][posX+1] === 'path') {
-            $('.pac-man').remove(); //remove beagle from current div
-            newGame.map[posY][posX] = 'path'; //assign former position to interior-block
-            posX+= 1; //decrement current position
-            newGame.map[posY][posX] = 'pac-man';
-            beagleHtml = '<img src="images/beagle.png" class="pac-man">';
-            currentPosition = $('.current-position');
-            currentPosition.append(beagleHtml);
+            this.shift(string);
             this.turn(string);
           }
           break;
@@ -86,23 +62,11 @@ Beagle.prototype.move = function(string) {
           newGame.dotCount -= 1;
           newGame.score += 10;
           newGame.updateScore();
-          $('.pac-man').remove(); //remove beagle from current div
-          newGame.map[posY][posX] = 'path'; //assign former position to interior-block
-          posY -= 1; //decrement current position
-          newGame.map[posY][posX] = 'pac-man';
-          beagleHtml = '<img src="images/beagle.png" class="pac-man">';
-          currentPosition = $('.current-position');
-          currentPosition.append(beagleHtml);
+          this.shift(string);
           this.turn(string);
           }
           else if(newGame.map[posY - 1][posX] === 'path') {
-            $('.pac-man').remove(); //remove beagle from current div
-            newGame.map[posY][posX] = 'path'; //assign former position to interior-block
-            posY-= 1; //decrement current position
-            newGame.map[posY][posX] = 'pac-man';
-            beagleHtml = '<img src="images/beagle.png" class="pac-man">';
-            currentPosition = $('.current-position');
-            currentPosition.append(beagleHtml);
+            this.shift(string);
             this.turn(string);
           }
           break;
@@ -116,30 +80,18 @@ Beagle.prototype.move = function(string) {
           newGame.dotCount -= 1;
           newGame.score += 10;
           newGame.updateScore();
-          $('.pac-man').remove(); //remove beagle from current div
-          newGame.map[posY][posX] = 'path'; //assign former position to interior-block
-          posY += 1; //decrement current position
-          newGame.map[posY][posX] = 'pac-man';
-          beagleHtml = '<img src="images/beagle.png" class="pac-man">';
-          currentPosition = $('.current-position');
-          currentPosition.append(beagleHtml);
+          this.shift(string);
           this.turn(string);
           }
           else if(newGame.map[posY + 1][posX] === 'path') {
-            $('.pac-man').remove(); //remove beagle from current div
-            newGame.map[posY][posX] = 'path'; //assign former position to interior-block
-            posY += 1; //decrement current position
-            newGame.map[posY][posX] = 'pac-man';
-            beagleHtml = '<img src="images/beagle.png" class="pac-man">';
-            currentPosition = $('.current-position');
-            currentPosition.append(beagleHtml);
+            this.shift(string);
             this.turn(string);
         }
         break;
       }
     };
 
-Beagle.prototype.pacAppend = () => {
+    Beagle.prototype.pacAppend = () => {
   beagleHtml = '<img src="images/beagle.png" class="pac-man">';
   currentPosition = $('.current-position');
   currentPosition.append(beagleHtml);
@@ -235,4 +187,33 @@ Beagle.prototype.pacAppend = () => {
         break;
       }
       return false;
+    };
+
+    Beagle.prototype.shift = function (string) {
+      let beaglePosition = newGame.mapFind('pac-man');
+      let posY = beaglePosition[0];
+      let posX = beaglePosition[1];
+      $('.pac-man').remove();
+      newGame.map[posY][posX] = 'path';
+      switch(string) {
+        case 'left':
+        posX -= 1;
+        break;
+
+        case 'right':
+        posX += 1;
+        break;
+
+        case 'up':
+        posY -= 1;
+        break;
+
+        case 'down':
+        posY += 1;
+        break;
+      }
+      newGame.map[posY][posX] = 'pac-man';
+      beagleHtml = '<img src="images/beagle.png" class="pac-man">';
+      currentPosition = $('.current-position');
+      currentPosition.append(beagleHtml);
     };
