@@ -12,15 +12,16 @@ function Beagle() { //beagle constructor
 
 Beagle.prototype.move = function(string) {
     var beagleHtml;
-    var beaglePosition = newGame.mapFind('pac-man');
+    let beaglePosition = newGame.mapFind('pac-man');
     let posY = beaglePosition[0];
     let posX = beaglePosition[1];
 
       switch(string) {
           case 'left':
-          if (  newGame.map[posY][posX-1] === 'wall') {
+          if (this.isBlocked(string) === true) {
             return;
-          } else if(newGame.map[posY][posX-1] === 'dot'){
+          }
+          else if(newGame.map[posY][posX-1] === 'dot'){
           ion.sound.play('water-drop');
           newGame.dotCount -= 1;
           newGame.score += 10;
@@ -47,9 +48,10 @@ Beagle.prototype.move = function(string) {
           break;
 
           case 'right':
-          if (  newGame.map[posY][posX+1] === 'wall') {
+          if ( this.isBlocked(string) === true) {
             return;
-          } else if(newGame.map[posY][posX+1] === 'dot'){
+          }
+          else if(newGame.map[posY][posX+1] === 'dot'){
           ion.sound.play('water-drop');
           newGame.dotCount -= 1;
           newGame.score += 10;
@@ -76,7 +78,7 @@ Beagle.prototype.move = function(string) {
           break;
 
           case 'up':
-          if (  newGame.map[posY - 1][posX] === 'wall') {
+          if ( this.isBlocked(string) === true ) {
             return;
           } else if(newGame.map[posY - 1][posX] === 'dot'){
           ion.sound.play('water-drop');
@@ -105,7 +107,7 @@ Beagle.prototype.move = function(string) {
           break;
 
           case 'down':
-          if (  newGame.map[posY + 1][posX] === 'wall') {
+          if (this.isBlocked(string) === true) {
             return;
           } else if(newGame.map[posY + 1][posX] === 'dot'){
           ion.sound.play('water-drop');
@@ -141,8 +143,6 @@ Beagle.prototype.pacAppend = () => {
   currentPosition.append(beagleHtml);
 };
 
-
-
     Beagle.prototype.turn = function (string) {
       switch(string){
 
@@ -165,4 +165,38 @@ Beagle.prototype.pacAppend = () => {
         newGame.direction = '0';
         break;
       }
+    };
+
+    Beagle.prototype.isBlocked = function (string) {
+
+      let beaglePosition = newGame.mapFind('pac-man');
+      let posY = beaglePosition[0];
+      let posX = beaglePosition[1];
+
+      switch(string) {
+        case 'left':
+        if (newGame.map[posY][posX-1] === 'wall') {
+          return true;
+        }
+        break;
+
+        case 'right':
+        if (newGame.map[posY][posX+1] === 'wall') {
+          return true;
+        }
+        break;
+
+        case 'up':
+        if(newGame.map[posY - 1][posX] === 'wall') {
+          return true;
+        }
+        break;
+
+        case 'down':
+        if(newGame.map[posY + 1][posX] === 'wall') {
+          return true;
+        }
+        break;
+      }
+      return false;
     };
