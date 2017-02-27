@@ -21,7 +21,7 @@ Beagle.prototype.move = function(string) {
           if (this.isBlocked(string) === true) {
             return;
           }
-          else if(newGame.map[posY][posX-1] === 'dot'){
+          else if(this.isBone(string) === true){
           ion.sound.play('water-drop');
           newGame.dotCount -= 1;
           newGame.score += 10;
@@ -51,7 +51,7 @@ Beagle.prototype.move = function(string) {
           if ( this.isBlocked(string) === true) {
             return;
           }
-          else if(newGame.map[posY][posX+1] === 'dot'){
+          else if(this.isBone(string) ===true){
           ion.sound.play('water-drop');
           newGame.dotCount -= 1;
           newGame.score += 10;
@@ -80,7 +80,8 @@ Beagle.prototype.move = function(string) {
           case 'up':
           if ( this.isBlocked(string) === true ) {
             return;
-          } else if(newGame.map[posY - 1][posX] === 'dot'){
+          }
+          else if (this.isBone(string) === true){
           ion.sound.play('water-drop');
           newGame.dotCount -= 1;
           newGame.score += 10;
@@ -109,7 +110,8 @@ Beagle.prototype.move = function(string) {
           case 'down':
           if (this.isBlocked(string) === true) {
             return;
-          } else if(newGame.map[posY + 1][posX] === 'dot'){
+          }
+          else if(this.isBone(string) === true){
           ion.sound.play('water-drop');
           newGame.dotCount -= 1;
           newGame.score += 10;
@@ -194,6 +196,40 @@ Beagle.prototype.pacAppend = () => {
 
         case 'down':
         if(newGame.map[posY + 1][posX] === 'wall') {
+          return true;
+        }
+        break;
+      }
+      return false;
+    };
+
+    Beagle.prototype.isBone = function (string) {
+
+      let beaglePosition = newGame.mapFind('pac-man');
+      let posY = beaglePosition[0];
+      let posX = beaglePosition[1];
+
+      switch(string) {
+        case 'left':
+        if (newGame.map[posY][posX-1] === 'dot') {
+          return true;
+        }
+        break;
+
+        case 'right':
+        if (newGame.map[posY][posX+1] === 'dot') {
+          return true;
+        }
+        break;
+
+        case 'up':
+        if(newGame.map[posY - 1][posX] === 'dot') {
+          return true;
+        }
+        break;
+
+        case 'down':
+        if(newGame.map[posY + 1][posX] === 'dot') {
           return true;
         }
         break;
