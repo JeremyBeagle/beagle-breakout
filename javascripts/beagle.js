@@ -23,11 +23,11 @@ Beagle.prototype.move = function(string) {
           }
           else if(this.isBone(string) === true){
           this.eat();
-          this.shift(string);
+          this.step(string);
           this.turn(string);
           }
           else if(newGame.map[posY][posX-1] === 'path') {
-            this.shift(string);
+            this.step(string);
             this.turn(string);
           }
           break;
@@ -38,11 +38,11 @@ Beagle.prototype.move = function(string) {
           }
           else if(this.isBone(string) ===true){
           this.eat();
-          this.shift(string);
+          this.step(string);
           this.turn(string);
           }
           else if(newGame.map[posY][posX+1] === 'path') {
-            this.shift(string);
+            this.step(string);
             this.turn(string);
           }
           break;
@@ -53,11 +53,11 @@ Beagle.prototype.move = function(string) {
           }
           else if (this.isBone(string) === true){
           this.eat();
-          this.shift(string);
+          this.step(string);
           this.turn(string);
           }
           else if(newGame.map[posY - 1][posX] === 'path') {
-            this.shift(string);
+            this.step(string);
             this.turn(string);
           }
           break;
@@ -68,11 +68,11 @@ Beagle.prototype.move = function(string) {
           }
           else if(this.isBone(string) === true){
           this.eat();
-          this.shift(string);
+          this.step(string);
           this.turn(string);
           }
           else if(newGame.map[posY + 1][posX] === 'path') {
-            this.shift(string);
+            this.step(string);
             this.turn(string);
         }
         break;
@@ -177,7 +177,7 @@ Beagle.prototype.isBone = function (string) {
       return false;
     };
 
-Beagle.prototype.shift = function (string) {
+Beagle.prototype.step = function (string) {
       let beaglePosition = newGame.mapFind('pac-man');
       let posY = beaglePosition[0];
       let posX = beaglePosition[1];
