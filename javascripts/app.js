@@ -14,7 +14,7 @@ let newGame = {
           ],
   score: 0,
   dotCount: 0,
-  renderBoard: () => {
+  renderBoard: function() {
     //read, style, and append to DOM based on string contents of hard-coded matrix
       $('.map-height-support').empty();
       let blockClass;
@@ -63,16 +63,16 @@ let newGame = {
           });
       });
   },
-  updateScore: () => {
+  updateScore: function() {
     $('.score').html("Score: " + newGame.score);
   },
-  checkWin: () => {
+  checkWin: function() {
     if (newGame.dotCount === 0) {
       ion.sound.play('big-pimpin');
       window.location.href = "victory.html";
     }
   },
-  mapFind: (target) => {
+  mapFind: function (target) {
     for( let i = 0; i < this.map.length; i += 1) {
       for (let j = 0; j <this.map[1].length; j += 1) {
         if (this.map[i][j] === target) {
@@ -85,14 +85,14 @@ let newGame = {
   beagle: new Beagle(),
   ghost: new Ghost(1, [5,14], [6,14]),
   ghost2: new Ghost(-1, [5,13], [6,13]),
-  spawnBeagle: () => {
+  placeBeagle: function () {
     this.map[this.beagle.posY][this.beagle.posX] = 'pac-man';
   },
-  spawnGhost: () => {
+  placeGhost: function () {
     this.map[this.ghost.posY][this.ghost.posX] = `ghost${this.ghost.id}`;
     this.map[this.ghost2.posY][this.ghost2.posX] = `ghost${this.ghost2.id}`;
   },
-  keyListen: (ev) => {
+  keyListen: function(ev) {
     let acceptableKeys = [ 37, 65, 38, 87, 39, 68, 40, 83 ];
     if (!acceptableKeys.includes(ev.keyCode)) {
       return;
@@ -125,14 +125,14 @@ let newGame = {
 
 };
 
-$(document).ready(function () {
+$(document).ready( function()  {
 
   loadSounds();
 
     ion.sound.play("pac-man-hip-hop-intro");
 
-    newGame.spawnBeagle(); //place beagle on map
-    newGame.spawnGhost(); //place dog-catchers on map
+    newGame.placeBeagle(); //place beagle on map
+    newGame.placeGhost(); //place dog-catchers on map
 
     renderInterval = setInterval(render, 10);
 
@@ -153,7 +153,7 @@ $(document).ready(function () {
       previous2 = newGame.ghost2.ghostMove(previous2);
     }
 
-  $(document).keydown(keyListen);
+  $(document).keydown(newGame.keyListen);
 });
 
 //how can I get beagle to KeyListen?
