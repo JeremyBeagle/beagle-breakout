@@ -69,7 +69,7 @@ var newGame = {
   checkWin: function() {
     if (newGame.dotCount === 0) {
       ion.sound.play('big-pimpin');
-      location.window.href = "victory.html";
+      window.location.href = "victory.html";
     }
   },
   mapFind: function(target) {
@@ -210,7 +210,6 @@ var newGame = {
         break;
       }
       }
-      newGame.checkWin();
   }
 };
 
@@ -227,6 +226,7 @@ $(document).ready(function () {
 
     function render () {
       newGame.renderBoard();
+      newGame.checkWin();
     }
 
     var intervalId = setInterval(move, 75);

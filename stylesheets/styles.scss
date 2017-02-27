@@ -178,20 +178,21 @@
 .ghost-position1 {
   width: 3.7%;
   height: 7.7%;
-  background-color: black;
+  background-color: rgb(199, 151, 58);
   float:left;
 }
 
 .ghost-position2 {
-  width: 3.7%;
   height: 7.7%;
-  background-color: black;
+  background-color: rgb(199, 151, 58);
   float:left;
+  width: 3.7%;
 }
 
 .ghost {
-  height: auto;
+  height: 8%;
   position: absolute;
+  margin: -2%;
   width: 4.7%;
   z-index: 1;
 }
