@@ -71,6 +71,8 @@ Catcher.prototype.isBlocked = function (nextTile) {
 
 Catcher.prototype.step = function (nextTile) {
   if (nextTile.value === 'beagle') {
+    newGame.map[nextTile.position[0]][nextTile.position[1]] = `catcher${this.id}`;
+    newGame.map[this.posY][this.posX] = nextTile.value;
     window.location.href = "game-over.html";
     return;
   }
@@ -93,14 +95,18 @@ Catcher.prototype.seek = function() {
   let posY = beaglePosition[0];
   let posX = beaglePosition[1];
   let direction = null;
+  let horizDist = Math.abs((posX - this.posX));
+  let vertDist = Math.abs((posY - this.posY));
 
-  if (posX < this.posX) {
-    direction = 3;
+  if(horizDist > vertDist || horizDist === vertDist){
+    if (posX < this.posX) {
+      direction = 3;
+    }
+    else if (posX > this.posX) {
+      direction = 1;
+    }
   }
-  else if (posX > this.posX) {
-    direction = 1;
-  }
-  else {
+  else if(horizDist < vertDist ){
     if (posY < this.posY) {
       direction = 4;
     }
@@ -108,5 +114,25 @@ Catcher.prototype.seek = function() {
       direction = 2;
     }
   }
+  else {
+    direction = Math.floor(Math.random() * (5 - 1) + 1);
+  }
   return direction;
+};
+
+Catcher.prototype.exit = function () {
+  let self = this;
+  newGame.map[4][15] = 'path';
+  let direction = 4;
+  let intervalId = setInterval(exit, 175);
+  let steps = 0;
+  function exit() {
+    if (steps > 1) {
+      clearInterval(intervalId);
+    }
+    let nextTile = self.checkNext(direction);
+    self.step(nextTile);
+    steps += 1;
+  }
+  newGame.map[4][15] = 'wall';
 };

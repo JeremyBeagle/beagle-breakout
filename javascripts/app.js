@@ -83,8 +83,8 @@ let newGame = {
     return undefined;
   },
   beagle: new Beagle(),
-  catcher1: new Catcher(1, [5,14], [6,14]),
-  catcher2: new Catcher(-1, [5,13], [6,13]),
+  catcher1: new Catcher(1, [5,13], [6,14]),
+  catcher2: new Catcher(-1, [6,13], [6,14]),
   placeBeagle: function () {
     this.map[this.beagle.posY][this.beagle.posX] = 'beagle';
   },
@@ -132,6 +132,8 @@ $(document).ready( function()  {
 
     newGame.placeBeagle(); //place beagle on map
     newGame.placeGhost(); //place dog-catchers on map
+    newGame.catcher1.exit();
+    //newGame.catcher2.exit();
 
     renderInterval = setInterval(render, 10);
 
@@ -140,7 +142,7 @@ $(document).ready( function()  {
       newGame.checkWin();
     }
 
-    let intervalId = setInterval(move, 150);
+    let intervalId = setInterval(move, 175);
     let previous = [newGame.catcher1.lastPosY, newGame.catcher1.lastPosX];
     let previous2 = [newGame.catcher2.lastPosY, newGame.catcher2.lastPosX];
 

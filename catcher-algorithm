@@ -1,0 +1,6 @@
+if(abs((posX - this.posX)) < abs((posY-this.posY))) {
+  horizontal move;
+}
+else if(abs((posX - this.posX)) > abs((posY-this.posY))) {
+  vertical move;
+}
