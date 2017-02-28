@@ -42,19 +42,13 @@ Catcher.prototype.checkNext = function (direction) {
   let posY = currentPosition[0];
   let posX = currentPosition[1];
 
-  if (direction === 4) {
-    nextTile.position = [posY - 1, posX];
-  }
-  else if (direction === 3) {
-    nextTile.position = [posY, posX - 1];
-  }
-  else if (direction === 2) {
-    nextTile.position = [posY + 1, posX];
-  }
-  else if (direction === 1) {
-    nextTile.position = [posY, posX + 1];
-  }
+  if      (direction === 4) { nextTile.position = [posY - 1, posX];}
+  else if (direction === 3) { nextTile.position = [posY, posX - 1];}
+  else if (direction === 2) { nextTile.position = [posY + 1, posX];}
+  else if (direction === 1) { nextTile.position = [posY, posX + 1];}
+
   nextTile.value = newGame.map[nextTile.position[0]][nextTile.position[1]];
+
   return nextTile;
 };
 
@@ -69,7 +63,7 @@ Catcher.prototype.isBlocked = function (nextTile) {
 };
 
 Catcher.prototype.step = function (nextTile) {
-  if (nextTile.value === 'pac-man') {
+  if (nextTile.value === 'beagle') {
     window.location.href = "game-over.html";
     return;
   }

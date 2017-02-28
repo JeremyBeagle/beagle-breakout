@@ -1,15 +1,15 @@
 let newGame = {
   map:     [['wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall'],
-            ['wall','dot', 'dot', 'dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','wall'],
-            ['wall','dot', 'wall','wall', 'wall', 'wall', 'dot', 'dot', 'dot', 'wall', 'dot', 'dot', 'dot', 'dot','dot','dot', 'dot', 'wall', 'dot', 'dot', 'dot', 'wall', 'wall', 'wall', 'wall', 'dot', 'wall'],
-            ['wall','dot', 'wall','dot','dot', 'dot','dot','dot','dot','wall','dot', 'dot','dot', 'dot','dot','dot', 'dot','wall', 'dot','dot','dot','dot','dot','dot', 'wall','dot', 'wall'],
-            ['wall','dot', 'wall','dot','wall','wall','wall','wall','dot','wall', 'dot','wall', 'wall','path','wall','wall', 'dot','wall','dot','wall','wall','wall','wall', 'dot','wall', 'dot','wall'],
-            ['wall','dot', 'wall','dot','dot', 'dot','dot','dot','dot','wall', 'dot','wall',  'path','path','path','wall', 'dot', 'wall','dot','dot','dot','dot','dot', 'dot','wall',  'dot','wall'],
-            ['wall','dot', 'dot', 'dot','wall','wall','wall','wall','dot','wall', 'dot','wall', 'path','path','path','wall', 'dot','wall','dot','wall','wall','wall','wall', 'dot','dot', 'dot','wall'],
-            ['wall','dot', 'dot', 'dot','dot', 'wall', 'dot', 'dot', 'dot', 'wall', 'dot', 'wall','wall', 'wall','wall','wall', 'dot','wall', 'dot', 'dot', 'dot', 'wall', 'dot', 'dot', 'dot','dot', 'wall'],
-            ['wall','dot', 'wall','wall','dot','wall','dot','dot','dot','wall','dot','dot','dot','dot','dot','dot', 'dot','wall','dot','dot','dot','wall','dot','wall','wall','dot','wall'],
-            ['wall','dot', 'wall','wall', 'dot', 'dot', 'dot', 'dot', 'dot', 'wall', 'dot', 'dot', 'dot', 'dot','dot','dot', 'dot', 'wall', 'dot', 'dot', 'dot', 'dot', 'dot', 'wall', 'wall', 'dot', 'wall'],
-            ['wall','dot', 'dot', 'dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','wall'],
+            ['wall','dot', 'dot', 'dot', 'dot', 'dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','wall'],
+            ['wall','dot', 'wall','wall','wall','wall', 'dot', 'dot', 'dot', 'wall', 'dot', 'dot', 'dot', 'dot','dot','dot', 'dot', 'wall', 'dot', 'dot', 'dot', 'wall', 'wall', 'wall', 'wall', 'dot', 'wall'],
+            ['wall','dot', 'wall','dot', 'dot', 'dot','dot','dot','dot','wall','dot', 'dot','dot', 'dot','dot','dot', 'dot','wall', 'dot','dot','dot','dot','dot','dot', 'wall','dot', 'wall'],
+            ['wall','dot', 'wall','dot', 'wall','wall','wall','wall','dot','wall', 'dot','wall', 'wall','path','wall','wall', 'dot','wall','dot','wall','wall','wall','wall', 'dot','wall', 'dot','wall'],
+            ['wall','dot', 'wall','dot', 'dot', 'dot','dot','dot','dot','wall', 'dot','wall',  'path','path','path','wall', 'dot', 'wall','dot','dot','dot','dot','dot', 'dot','wall',  'dot','wall'],
+            ['wall','dot', 'dot', 'dot', 'wall','wall','wall','wall','dot','wall', 'dot','wall', 'path','path','path','wall', 'dot','wall','dot','wall','wall','wall','wall', 'dot','dot', 'dot','wall'],
+            ['wall','dot', 'dot', 'dot', 'dot', 'wall', 'dot', 'dot', 'dot', 'wall', 'dot', 'wall','wall', 'wall','wall','wall', 'dot','wall', 'dot', 'dot', 'dot', 'wall', 'dot', 'dot', 'dot','dot', 'wall'],
+            ['wall','dot', 'wall','wall','dot', 'wall','dot','dot','dot','wall','dot','dot','dot','dot','dot','dot', 'dot','wall','dot','dot','dot','wall','dot','wall','wall','dot','wall'],
+            ['wall','dot', 'wall','wall','dot', 'dot', 'dot', 'dot', 'dot', 'wall', 'dot', 'dot', 'dot', 'dot','dot','dot', 'dot', 'wall', 'dot', 'dot', 'dot', 'dot', 'dot', 'wall', 'wall', 'dot', 'wall'],
+            ['wall','dot', 'dot', 'dot', 'dot', 'dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','dot','wall'],
             ['wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall','wall']
           ],
   score: 0,
@@ -32,14 +32,14 @@ let newGame = {
               blockHtml = '<div class="'+blockClass+'"></div>';
               $('.map-height-support').append(blockHtml);
             }
-            else if (tile === 'pac-man'){
+            else if (tile === 'beagle'){
               blockClass = 'tile current-position';
               blockHtml = '<div class="'+blockClass+'"></div>';
               $('.map-height-support').append(blockHtml);
-              beagleHtml = '<img src="images/beagle.png" class="pac-man">';
+              beagleHtml = '<img src="images/beagle.png" class="beagle">';
               currentPosition = $('.current-position');
               currentPosition.append(beagleHtml);
-              $('.pac-man').css({'transform' : 'rotate('+newGame.direction+'deg)'});
+              $('.beagle').css({'transform' : 'rotate('+newGame.direction+'deg)'});
             }
             else if (tile === 'catcher1') {
               blockClass = 'tile catcher-position1';
@@ -86,7 +86,7 @@ let newGame = {
   catcher1: new Catcher(1, [5,14], [6,14]),
   catcher2: new Catcher(-1, [5,13], [6,13]),
   placeBeagle: function () {
-    this.map[this.beagle.posY][this.beagle.posX] = 'pac-man';
+    this.map[this.beagle.posY][this.beagle.posX] = 'beagle';
   },
   placeGhost: function () {
     this.map[this.catcher1.posY][this.catcher1.posX] = `catcher${this.catcher1.id}`;
@@ -128,7 +128,7 @@ $(document).ready( function()  {
 
   loadSounds();
 
-    ion.sound.play("pac-man-hip-hop-intro");
+    ion.sound.play("beagle-hip-hop-intro");
 
     newGame.placeBeagle(); //place beagle on map
     newGame.placeGhost(); //place dog-catchers on map
@@ -145,7 +145,7 @@ $(document).ready( function()  {
     let previous2 = [newGame.catcher2.lastPosY, newGame.catcher2.lastPosX];
 
     function move () {
-      if(newGame.mapFind('pac-man') === undefined) {
+      if(newGame.mapFind('beagle') === undefined) {
         clearInterval(intervalId);
       }
       previous = newGame.catcher1.move(previous);

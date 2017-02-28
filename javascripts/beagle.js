@@ -7,7 +7,7 @@ function Beagle() { //beagle constructor
 
 Beagle.prototype.move = function(string) {
     var beagleHtml;
-    let beaglePosition = newGame.mapFind('pac-man');
+    let beaglePosition = newGame.mapFind('beagle');
     let posY = beaglePosition[0];
     let posX = beaglePosition[1];
 
@@ -76,7 +76,7 @@ Beagle.prototype.move = function(string) {
     };
 
 Beagle.prototype.pacAppend = () => {
-  beagleHtml = '<img src="images/beagle.png" class="pac-man">';
+  beagleHtml = '<img src="images/beagle.png" class="beagle">';
   currentPosition = $('.current-position');
   currentPosition.append(beagleHtml);
 };
@@ -86,17 +86,17 @@ Beagle.prototype.turn = function (string) {
 
         case 'left':
         newGame.direction = '90';
-        $('.pac-man').css({'transform' : 'rotate(90deg)'});
+        $('.beagle').css({'transform' : 'rotate(90deg)'});
         break;
 
         case 'right':
         newGame.direction = '270';
-        $('.pac-man').css({'transform' : 'rotate(270deg)'});
+        $('.beagle').css({'transform' : 'rotate(270deg)'});
         break;
 
         case 'up':
         newGame.direction = '180';
-        $('.pac-man').css({'transform' : 'rotate(180deg)'});
+        $('.beagle').css({'transform' : 'rotate(180deg)'});
         break;
 
         case 'down':
@@ -107,7 +107,7 @@ Beagle.prototype.turn = function (string) {
 
 Beagle.prototype.isBlocked = function (string) {
 
-      let beaglePosition = newGame.mapFind('pac-man');
+      let beaglePosition = newGame.mapFind('beagle');
       let posY = beaglePosition[0];
       let posX = beaglePosition[1];
 
@@ -141,7 +141,7 @@ Beagle.prototype.isBlocked = function (string) {
 
 Beagle.prototype.isBone = function (string) {
 
-      let beaglePosition = newGame.mapFind('pac-man');
+      let beaglePosition = newGame.mapFind('beagle');
       let posY = beaglePosition[0];
       let posX = beaglePosition[1];
 
@@ -174,10 +174,10 @@ Beagle.prototype.isBone = function (string) {
     };
 
 Beagle.prototype.step = function (string) {
-      let beaglePosition = newGame.mapFind('pac-man');
+      let beaglePosition = newGame.mapFind('beagle');
       let posY = beaglePosition[0];
       let posX = beaglePosition[1];
-      $('.pac-man').remove();
+      $('.beagle').remove();
       newGame.map[posY][posX] = 'path';
       switch(string) {
         case 'left':
@@ -196,8 +196,8 @@ Beagle.prototype.step = function (string) {
         posY += 1;
         break;
       }
-      newGame.map[posY][posX] = 'pac-man';
-      beagleHtml = '<img src="images/beagle.png" class="pac-man">';
+      newGame.map[posY][posX] = 'beagle';
+      beagleHtml = '<img src="images/beagle.png" class="beagle">';
       currentPosition = $('.current-position');
       currentPosition.append(beagleHtml);
     };
