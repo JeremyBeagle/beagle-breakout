@@ -3,11 +3,6 @@ function Beagle() { //beagle constructor
   this.direction = '0';
   this.posY = 9;
   this.posX = 13;
-
-  var ghostHtml = '<div class="ghost"></div>';
-  $('.ghost-position').append(ghostHtml);
-  var beagleHtml = '<img src="images/beagle.png" class="pac-man">'; //create HTML template
-  $('.current-position').append(beagleHtml); //add pac-man to corresponding div on rendered board
 }
 
 Beagle.prototype.move = function(string) {

@@ -5,66 +5,18 @@ function Ghost (id, startingLocation, previousLocation) {
   this.lastPosY = previousLocation[0];
   this.lastPosX = previousLocation[1];
 }
+
 Ghost.prototype.ghostMove = function(previous) {
 
-  let up = true, down = true, left = true, right = true;
-  let direction = Math.floor(Math.random() * (5 - 1) + 1);
-  let replacementTile;
-  let next = this.next(direction);
-  let currentPosition = newGame.mapFind(`ghost${this.id}`); //begin ghost movement interval
-  //obstacle check
-  if (newGame.map[currentPosition[0] - 1][currentPosition[1]] === 'wall' || newGame.map[currentPosition[0] - 1][currentPosition[1]] === ('ghost' + (this.id * -1)) ) {
-    up = false;
-  }
-  if (newGame.map[currentPosition[0]][currentPosition[1] - 1] === 'wall' || newGame.map[currentPosition[0]][currentPosition[1] - 1] === ('ghost' + (this.id * -1))) {
-    left = false;
-  }
-  if (newGame.map[currentPosition[0] + 1][currentPosition[1]] === 'wall' || newGame.map[currentPosition[0] + 1][currentPosition[1]] === ('ghost' + (this.id * -1))) {
-    down = false;
-  }
-  if (newGame.map[currentPosition[0]][currentPosition[1] + 1] === 'wall' || newGame.map[currentPosition[0]][currentPosition[1] + 1] === ('ghost' + (this.id * -1))) {
-    right = false;
-  }
+  let nextTile = null;
 
-    if(newGame.map[next[0]][next[1]]==='dot') {
-      replacementTile = 'dot';
-    } else if (newGame.map[next[0]][next[1]]==='path') {
-      replacementTile = 'path';
-    } else if (newGame.map[next[0]][next[1]]==='pac-man') {
-      replacementTile = 'path';
-      $('.map-height-support').empty();
-      window.location.href = "game-over.html";
-      return;
-    }
+  do {
+    let direction = Math.floor(Math.random() * (5 - 1) + 1);
+    nextTile = this.checkNext(direction);
+  }
+  while(this.isBlocked(nextTile) === true || this.isEqual(nextTile.position, previous) === true);
+  previous = this.step(nextTile);
 
-    if ( up === true && direction === 4 && this.isEqual(next, previous) === false) {
-      newGame.map[currentPosition[0] - 1][currentPosition[1]] = 'ghost' + this.id;
-      newGame.map[currentPosition[0]][currentPosition[1]] = replacementTile; //assign current tile
-      previous = [currentPosition[0], currentPosition[1]];
-      this.posY -= 1;
-      return previous;
-    }
-    else if ( left === true && direction === 3 && this.isEqual(next, previous) === false) {
-      newGame.map[currentPosition[0]][currentPosition[1] - 1] = 'ghost' + this.id;
-      newGame.map[currentPosition[0]][currentPosition[1]] = replacementTile;
-      previous = [currentPosition[0], currentPosition[1]];
-      this.posX -= 1;
-      return previous;
-    }
-    else if ( down === true && direction === 2 && this.isEqual(next, previous) === false) {
-      newGame.map[currentPosition[0] + 1][currentPosition[1]] = 'ghost' + this.id;
-      newGame.map[currentPosition[0]][currentPosition[1]] = replacementTile;
-      previous = [currentPosition[0], currentPosition[1]];
-      this.posY += 1;
-      return previous;
-    }
-    else if ( right === true && direction == 1 && this.isEqual(next, previous) === false) {
-      newGame.map[currentPosition[0]][currentPosition[1] + 1] = 'ghost' + this.id;
-      newGame.map[currentPosition[0]][currentPosition[1]] = replacementTile;
-      previous = [currentPosition[0], currentPosition[1]];
-      this.posX += 1;
-      return previous;
-    }
   return previous;
 };
 
@@ -72,10 +24,7 @@ Ghost.prototype.isEqual = function(array1, array2) {
   let equal = true;
   if (array1.length === array2.length) {
     for (i = 0; i < array1.length; i++) {
-      if(array1[i] === array2[i]) {
-        equal = true;
-      }
-      else{
+      if(array1[i] !== array2[i]) {
         equal = false;
         break;
       }
@@ -84,17 +33,56 @@ Ghost.prototype.isEqual = function(array1, array2) {
   return equal;
 };
 
-Ghost.prototype.next = function (randomNumber) {
-  let next = [];
+Ghost.prototype.checkNext = function (direction) {
+  let nextTile = {
+    position: [],
+    value: null
+  };
   let currentPosition = newGame.mapFind(`ghost${this.id}`);
-  if(randomNumber == 4) {
-    next = [currentPosition[0]-1, currentPosition[1]];
-  } else if (randomNumber == 3) {
-    next = [currentPosition[0], currentPosition[1]-1];
-  } else if (randomNumber == 2) {
-    next = [currentPosition[0]+1, currentPosition[1]];
-  } else if (randomNumber == 1) {
-    next = [currentPosition[0], currentPosition[1]+1];
+  let posY = currentPosition[0];
+  let posX = currentPosition[1];
+
+  if (direction === 4) {
+    nextTile.position = [posY - 1, posX];
   }
-  return next;
+  else if (direction === 3) {
+    nextTile.position = [posY, posX - 1];
+  }
+  else if (direction === 2) {
+    nextTile.position = [posY + 1, posX];
+  }
+  else if (direction === 1) {
+    nextTile.position = [posY, posX + 1];
+  }
+  nextTile.value = newGame.map[nextTile.position[0]][nextTile.position[1]];
+  return nextTile;
+};
+
+Ghost.prototype.isBlocked = function (nextTile) {
+  let posY = nextTile.position[0];
+  let posX = nextTile.position[1];
+
+  if (newGame.map[posY][posX] === 'wall') {
+    return true;
+  }
+  return false;
+};
+
+Ghost.prototype.step = function (nextTile) {
+  if (nextTile.value === 'pac-man') {
+    window.location.href = "game-over.html";
+    return;
+  }
+
+  let previous = [this.posY, this.posX];
+
+  if (nextTile.value === `ghost${this.id * -1}`) {
+    return previous;
+  }
+
+  newGame.map[nextTile.position[0]][nextTile.position[1]] = `ghost${this.id}`;
+  newGame.map[this.posY][this.posX] = nextTile.value;
+  this.posY = nextTile.position[0];
+  this.posX = nextTile.position[1];
+  return previous;
 };
