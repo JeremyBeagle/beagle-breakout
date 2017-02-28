@@ -8,14 +8,21 @@ function Catcher (id, startingLocation, previousLocation) {
 
 Catcher.prototype.move = function(previous) {
 
-  let nextTile = null;
-
-  do {
-    let direction = Math.floor(Math.random() * (5 - 1) + 1);
-    nextTile = this.checkNext(direction);
+  let direction = this.seek();
+  let nextTile = this.checkNext(direction);
+  if (this.isBlocked(nextTile) === false) {
+    previous = this.step(nextTile);
   }
-  while(this.isBlocked(nextTile) === true || this.isEqual(nextTile.position, previous) === true);
-  previous = this.step(nextTile);
+  else {
+
+    do {
+      direction = Math.floor(Math.random() * (5 - 1) + 1);
+      nextTile = this.checkNext(direction);
+    }
+    while(this.isBlocked(nextTile) === true || this.isEqual(nextTile.position, previous) === true);
+    previous = this.step(nextTile);
+
+  }
 
   return previous;
 };
@@ -42,10 +49,10 @@ Catcher.prototype.checkNext = function (direction) {
   let posY = currentPosition[0];
   let posX = currentPosition[1];
 
-  if      (direction === 4) { nextTile.position = [posY - 1, posX];}
-  else if (direction === 3) { nextTile.position = [posY, posX - 1];}
-  else if (direction === 2) { nextTile.position = [posY + 1, posX];}
-  else if (direction === 1) { nextTile.position = [posY, posX + 1];}
+  if      (direction === 4) { nextTile.position = [posY - 1, posX];} //up
+  else if (direction === 3) { nextTile.position = [posY, posX - 1];} //left
+  else if (direction === 2) { nextTile.position = [posY + 1, posX];} //down
+  else if (direction === 1) { nextTile.position = [posY, posX + 1];} //right
 
   nextTile.value = newGame.map[nextTile.position[0]][nextTile.position[1]];
 
@@ -79,4 +86,27 @@ Catcher.prototype.step = function (nextTile) {
   this.posY = nextTile.position[0];
   this.posX = nextTile.position[1];
   return previous;
+};
+
+Catcher.prototype.seek = function() {
+  let beaglePosition = newGame.mapFind(`beagle`);
+  let posY = beaglePosition[0];
+  let posX = beaglePosition[1];
+  let direction = null;
+
+  if (posX < this.posX) {
+    direction = 3;
+  }
+  else if (posX > this.posX) {
+    direction = 1;
+  }
+  else {
+    if (posY < this.posY) {
+      direction = 4;
+    }
+    else if (posY > this.posY) {
+      direction = 2;
+    }
+  }
+  return direction;
 };

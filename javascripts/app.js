@@ -140,7 +140,7 @@ $(document).ready( function()  {
       newGame.checkWin();
     }
 
-    let intervalId = setInterval(move, 75);
+    let intervalId = setInterval(move, 150);
     let previous = [newGame.catcher1.lastPosY, newGame.catcher1.lastPosX];
     let previous2 = [newGame.catcher2.lastPosY, newGame.catcher2.lastPosX];
 
