@@ -1,4 +1,4 @@
-function Ghost (id, startingLocation, previousLocation) {
+function Catcher (id, startingLocation, previousLocation) {
   this.id = id;
   this.posY = startingLocation[0];
   this.posX = startingLocation[1];
@@ -6,7 +6,7 @@ function Ghost (id, startingLocation, previousLocation) {
   this.lastPosX = previousLocation[1];
 }
 
-Ghost.prototype.ghostMove = function(previous) {
+Catcher.prototype.move = function(previous) {
 
   let nextTile = null;
 
@@ -20,7 +20,7 @@ Ghost.prototype.ghostMove = function(previous) {
   return previous;
 };
 
-Ghost.prototype.isEqual = function(array1, array2) {
+Catcher.prototype.isEqual = function(array1, array2) {
   let equal = true;
   if (array1.length === array2.length) {
     for (i = 0; i < array1.length; i++) {
@@ -33,12 +33,12 @@ Ghost.prototype.isEqual = function(array1, array2) {
   return equal;
 };
 
-Ghost.prototype.checkNext = function (direction) {
+Catcher.prototype.checkNext = function (direction) {
   let nextTile = {
     position: [],
     value: null
   };
-  let currentPosition = newGame.mapFind(`ghost${this.id}`);
+  let currentPosition = newGame.mapFind(`catcher${this.id}`);
   let posY = currentPosition[0];
   let posX = currentPosition[1];
 
@@ -58,7 +58,7 @@ Ghost.prototype.checkNext = function (direction) {
   return nextTile;
 };
 
-Ghost.prototype.isBlocked = function (nextTile) {
+Catcher.prototype.isBlocked = function (nextTile) {
   let posY = nextTile.position[0];
   let posX = nextTile.position[1];
 
@@ -68,7 +68,7 @@ Ghost.prototype.isBlocked = function (nextTile) {
   return false;
 };
 
-Ghost.prototype.step = function (nextTile) {
+Catcher.prototype.step = function (nextTile) {
   if (nextTile.value === 'pac-man') {
     window.location.href = "game-over.html";
     return;
@@ -76,11 +76,11 @@ Ghost.prototype.step = function (nextTile) {
 
   let previous = [this.posY, this.posX];
 
-  if (nextTile.value === `ghost${this.id * -1}`) {
+  if (nextTile.value === `catcher${this.id * -1}`) {
     return previous;
   }
 
-  newGame.map[nextTile.position[0]][nextTile.position[1]] = `ghost${this.id}`;
+  newGame.map[nextTile.position[0]][nextTile.position[1]] = `catcher${this.id}`;
   newGame.map[this.posY][this.posX] = nextTile.value;
   this.posY = nextTile.position[0];
   this.posX = nextTile.position[1];

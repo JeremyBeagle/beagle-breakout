@@ -41,19 +41,19 @@ let newGame = {
               currentPosition.append(beagleHtml);
               $('.pac-man').css({'transform' : 'rotate('+newGame.direction+'deg)'});
             }
-            else if (tile === 'ghost1') {
-              blockClass = 'tile ghost-position1';
+            else if (tile === 'catcher1') {
+              blockClass = 'tile catcher-position1';
               blockHtml = '<div class="'+blockClass+'"></div>';
               $('.map-height-support').append(blockHtml);
-              let ghostHtml1 = '<img src="images/dog-catcher.png" class="ghost">';
-              $('.ghost-position1').append(ghostHtml1);
+              let ghostHtml1 = '<img src="images/dog-catcher.png" class="catcher">';
+              $('.catcher-position1').append(ghostHtml1);
             }
-            else if (tile === 'ghost-1') {
-              blockClass = 'tile ghost-position2';
+            else if (tile === 'catcher-1') {
+              blockClass = 'tile catcher-position2';
               blockHtml = '<div class="'+blockClass+'"></div>';
               $('.map-height-support').append(blockHtml);
-              let ghostHtml2 = '<img src="images/dog-catcher.png" class="ghost">';
-              $('.ghost-position2').append(ghostHtml2);
+              let ghostHtml2 = '<img src="images/dog-catcher.png" class="catcher">';
+              $('.catcher-position2').append(ghostHtml2);
             }
             else if (tile === 'dot') {
               blockHtml = '<div class="tile interior-block"><img class = "dot" src = "images/bone.png"></div></div>';
@@ -83,14 +83,14 @@ let newGame = {
     return undefined;
   },
   beagle: new Beagle(),
-  ghost: new Ghost(1, [5,14], [6,14]),
-  ghost2: new Ghost(-1, [5,13], [6,13]),
+  catcher1: new Catcher(1, [5,14], [6,14]),
+  catcher2: new Catcher(-1, [5,13], [6,13]),
   placeBeagle: function () {
     this.map[this.beagle.posY][this.beagle.posX] = 'pac-man';
   },
   placeGhost: function () {
-    this.map[this.ghost.posY][this.ghost.posX] = `ghost${this.ghost.id}`;
-    this.map[this.ghost2.posY][this.ghost2.posX] = `ghost${this.ghost2.id}`;
+    this.map[this.catcher1.posY][this.catcher1.posX] = `catcher${this.catcher1.id}`;
+    this.map[this.catcher2.posY][this.catcher2.posX] = `catcher${this.catcher2.id}`;
   },
   keyListen: function(ev) {
     let acceptableKeys = [ 37, 65, 38, 87, 39, 68, 40, 83 ];
@@ -105,7 +105,6 @@ let newGame = {
     switch (ev.keyCode) {
       case 37:  // left arrow
       case 65:  // a
-      console.log(newGame.beagle);
         newGame.beagle.move('left');
         break;
       case 38:  // up arrow
@@ -142,15 +141,15 @@ $(document).ready( function()  {
     }
 
     let intervalId = setInterval(move, 75);
-    let previous = [newGame.ghost.lastPosY, newGame.ghost.lastPosX];
-    let previous2 = [newGame.ghost2.lastPosY, newGame.ghost2.lastPosX];
+    let previous = [newGame.catcher1.lastPosY, newGame.catcher1.lastPosX];
+    let previous2 = [newGame.catcher2.lastPosY, newGame.catcher2.lastPosX];
 
     function move () {
       if(newGame.mapFind('pac-man') === undefined) {
         clearInterval(intervalId);
       }
-      previous = newGame.ghost.ghostMove(previous);
-      previous2 = newGame.ghost2.ghostMove(previous2);
+      previous = newGame.catcher1.move(previous);
+      previous2 = newGame.catcher2.move(previous2);
     }
 
   $(document).keydown(newGame.keyListen);
