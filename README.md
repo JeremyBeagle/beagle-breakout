@@ -1,7 +1,7 @@
 # Pac-Man Beagle
 ## A game by Jeremy Beagle
 
-##PLAY NOW:  https://jrbeagle.github.io/pacman/
+##PLAY NOW:  https://jrbeagle.github.io/game-pac-man-beagle/
 
 ##Game Objective: 
 ###The objective of the game is for the beagle to consume all of the white discs without coming in contact with a ghost.
