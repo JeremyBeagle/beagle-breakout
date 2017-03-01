@@ -83,14 +83,19 @@ let newGame = {
     return undefined;
   },
   beagle: new Beagle(),
-  catcher1: new Catcher(1, [5,13], [6,14]),
+  catcher1: new Catcher(1, [6,13], [6,14]),
   catcher2: new Catcher(-1, [6,13], [6,14]),
   placeBeagle: function () {
     this.map[this.beagle.posY][this.beagle.posX] = 'beagle';
   },
   placeGhost: function () {
     this.map[this.catcher1.posY][this.catcher1.posX] = `catcher${this.catcher1.id}`;
-    this.map[this.catcher2.posY][this.catcher2.posX] = `catcher${this.catcher2.id}`;
+    const intervalId = setTimeout(second, 535);
+    let catcher2 = this.catcher2;
+    let map = this.map;
+    function second() {
+      map[catcher2.posY][catcher2.posX] = `catcher${catcher2.id}`;
+    }
   },
   keyListen: function(ev) {
     let acceptableKeys = [ 37, 65, 38, 87, 39, 68, 40, 83 ];
@@ -128,30 +133,40 @@ $(document).ready( function()  {
 
   loadSounds();
 
-    ion.sound.play("beagle-hip-hop-intro");
+  ion.sound.play("pac-man-hip-hop-intro");
 
-    newGame.placeBeagle(); //place beagle on map
-    newGame.placeGhost(); //place dog-catchers on map
-    newGame.catcher1.exit();
-    //newGame.catcher2.exit();
+  newGame.placeBeagle(); //place beagle on map
+  newGame.placeGhost(); //place dog-catchers on map
+  newGame.catcher1.exit();
+  const intervalId3 = setTimeout(secondExit, 545);
 
-    renderInterval = setInterval(render, 10);
+  function secondExit() {
+    newGame.catcher2.exit();
+  }
 
-    function render () {
-      newGame.renderBoard();
-      newGame.checkWin();
-    }
 
-    let intervalId = setInterval(move, 175);
+  renderInterval = setInterval(render, 20);
+
+  function render () {
+    newGame.renderBoard();
+    newGame.checkWin();
+  }
+  const intervalId = setTimeout(beginChase, 1090);
+
+  function beginChase() {
+
+    let intervalId2 = setInterval(move, 175);
     let previous = [newGame.catcher1.lastPosY, newGame.catcher1.lastPosX];
     let previous2 = [newGame.catcher2.lastPosY, newGame.catcher2.lastPosX];
 
-    function move () {
-      if(newGame.mapFind('beagle') === undefined) {
-        clearInterval(intervalId);
+      function move () {
+        if(newGame.mapFind('beagle') === undefined) {
+          clearInterval(intervalId2);
+        }
+        previous = newGame.catcher1.move(previous);
+        previous2 = newGame.catcher2.move(previous2);
       }
-      previous = newGame.catcher1.move(previous);
-      previous2 = newGame.catcher2.move(previous2);
+
     }
 
   $(document).keydown(newGame.keyListen);

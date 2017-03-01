@@ -72,7 +72,7 @@ Catcher.prototype.isBlocked = function (nextTile) {
 Catcher.prototype.step = function (nextTile) {
   if (nextTile.value === 'beagle') {
     newGame.map[nextTile.position[0]][nextTile.position[1]] = `catcher${this.id}`;
-    newGame.map[this.posY][this.posX] = nextTile.value;
+    newGame.map[this.posY][this.posX] = 'path';
     window.location.href = "game-over.html";
     return;
   }
@@ -121,18 +121,27 @@ Catcher.prototype.seek = function() {
 };
 
 Catcher.prototype.exit = function () {
+
   let self = this;
-  newGame.map[4][15] = 'path';
-  let direction = 4;
+
+  newGame.map[4][13] = 'path';
+
+  let direction = 4; //up
   let intervalId = setInterval(exit, 175);
-  let steps = 0;
+  let intervalId2 = setTimeout(block, 535);
+  let steps = 0; //control variable
   function exit() {
-    if (steps > 1) {
+
+    if (steps > 3) {
       clearInterval(intervalId);
     }
+
     let nextTile = self.checkNext(direction);
     self.step(nextTile);
     steps += 1;
   }
-  newGame.map[4][15] = 'wall';
+
+  function block() {
+    newGame.map[4][13] = 'wall';
+  }
 };
