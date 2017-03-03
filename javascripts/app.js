@@ -126,7 +126,6 @@ let newGame = {
         break;
     }
   }
-
 };
 
 $(document).ready( function()  {
@@ -144,7 +143,6 @@ $(document).ready( function()  {
     newGame.catcher2.exit();
   }
 
-
   renderInterval = setInterval(render, 20);
 
   function render () {
@@ -155,7 +153,7 @@ $(document).ready( function()  {
 
   function beginChase() {
 
-    let intervalId2 = setInterval(move, 175);
+    let intervalId2 = setInterval(move, 200);
     let previous = [newGame.catcher1.lastPosY, newGame.catcher1.lastPosX];
     let previous2 = [newGame.catcher2.lastPosY, newGame.catcher2.lastPosX];
 

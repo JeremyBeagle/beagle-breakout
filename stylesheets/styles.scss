@@ -1,30 +1,66 @@
-.screen {
-  background-color: white;
-  height: 100%;
-  color: black;
+body {
+  background-color: rgb(98, 162, 37);
+
+  color: white;
   font-family: 'Barrio', cursive;
 
-  .page-title{
+  h1 {
     position: relative;
-    margin-top: 3%;
-    margin-bottom: 2%;
-    left: 28%;
+    display: inline-block;
     font-size: 550%;
+    height: auto;
+    margin: 5% 2% 5% 29.5%;
   }
-  .header-image {
+
+  .header-image{
     position: absolute;
-    left: 65%;
     width: 10%;
+    height: auto;
+    top: 15%;
+    filter: invert(100%);
   }
+
+}
+
+.portal {
+  border: 5px solid rgb(189, 138, 39);
+  border-radius: 10px;
+  background-color: rgb(228, 191, 135);
+  height: 90%;
+  width: 40%;
+
+  img {
+    margin-top: 10%;
+    width: 80%;
+  }
+
+    button {
+      background: linear-gradient(top, bottom, blue, white);
+      font-size: 2em;
+      height: auto;
+      padding: 0.25%;
+      position: absolute;
+      display: inline-block;
+      top: 90%;
+      left: 70%;
+      width: 20%;
+    }
+
+    p {
+      margin: 3% 10% 10% 10%;
+      font-family: helvetica;
+      font-size: 1.75em;
+    }
 }
 
 .map {
   position: relative;
-  padding-top: 35%;
-  margin-left: 17.5%;
-  margin-right: 17.5%;
+  padding-top: 33%;
+  margin-left: 25.375%;
+  margin-right: 25.375%;
   margin-top: 1%;
   margin-bottom: 1%;
+  width: 49.25%;
 
   .start-game-cover {
     border: 6px solid white;
@@ -54,18 +90,6 @@
       transform: rotate(0deg);
     }
 
-    .start-level {
-      background-color: white;
-      border:2px solid blue;
-      left: 67%;
-      position: absolute;
-      top: 80%;
-      width: 22%;
-      height: 8%;
-      padding: 0px;
-      font-size: 2em;
-      color: blue;
-    }
   }
   .map-height-support {
     background-size: 105% 105%;
@@ -79,11 +103,12 @@
   }
 
   .game-over-screen {
-    border: 6px solid white;
     background-color: black;
-    border-radius: 10px;
+    border: 6px solid white;
+    border-radius: 15px;
     bottom: 0;
     left: 0;
+    height: auto;
     position: absolute;
     right: 0;
     top: 0;
@@ -91,27 +116,27 @@
 
     .loser-message {
       position: absolute;
-      color: black;
-      font-size: 10em;
-      top: 32%;
-      left: 15%;
+      color: rgb(46, 103, 179);
+      font-size: 8em;
+      top: 40%;
+      margin: 0% 16%;
+    }
+
+    button {
+      background: linear-gradient(top, bottom, blue, white);
+      font-size: 2em;
+      height: auto;
+      padding: 0.25%;
+      position: absolute;
+      display: inline-block;
+      top: 60%;
+      left: 40%;
+      width: 20%;
     }
 
     img {
       border-radius: 10px;
       width: 100%;
-    }
-    .start-level {
-      background-color: white;
-      border:2px solid blue;
-      left: 67%;
-      position: absolute;
-      top: 80%;
-      width: 22%;
-      height: 8%;
-      padding: 0px;
-      font-size: 2em;
-      color: blue;
     }
   }
 
@@ -129,9 +154,18 @@
 
     .winner-message {
       position: absolute;
-      font-size: 10em;
-      top: 32%;
-      left: 25%;
+      color: white;
+      font-size: 8em;
+      top: 30%;
+      margin: 0% 27%;
+    }
+    .score{
+      position: relative;
+      display: inline;
+      margin-right: 15%;
+      left: 32%;
+      top: 55%;
+      font-size: 6em;
     }
 
   }
@@ -151,7 +185,7 @@
   position: relative;
   display: inline;
   margin-right: 15%;
-  left: 18%;
+  left: 26%;
   font-size: 30px;
 }
 
@@ -206,6 +240,17 @@
   margin: -2%;
   width: 4.7%;
   z-index: 1;
+}
+
+.center {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+}
+
+.full {
+  width: 100%;
+  height: auto;
 }
 
 @media (min-width: 650px) and (max-width: 999px) {
